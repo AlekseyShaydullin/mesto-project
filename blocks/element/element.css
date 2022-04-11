@@ -1,0 +1,10 @@
+.element {
+  margin: 0;
+  width: 282px;
+  height: 362px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}

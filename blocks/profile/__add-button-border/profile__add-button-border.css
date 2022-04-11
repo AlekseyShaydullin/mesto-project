@@ -1,0 +1,21 @@
+.profile__add-button-border {
+  width: 150px;
+  height: 50px;
+  border: 2px solid #fff;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity .1s linear;
+}
+
+.profile__add-button-border:hover {
+  opacity: .6;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 320px) {
+  .profile__add-button-border {
+    width: 282px;
+  }
+}

@@ -1,0 +1,17 @@
+.profile__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /*list-style-type: none;
+  margin: 0;
+  padding: 0;*/
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 320px) {
+  .profile__container {
+    justify-content: start;
+  }
+}

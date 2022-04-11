@@ -1,0 +1,15 @@
+.profile__edit-button-box {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #fff;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity .1s linear;
+}
+
+.profile__edit-button-box:hover {
+  opacity: .6;
+  cursor: pointer;
+}
