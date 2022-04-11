@@ -1,5 +1,5 @@
 .elements {
-  margin: 50px 200px 0;
+  padding-top: 50px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
@@ -7,11 +7,18 @@
   grid-auto-rows: 1fr;
 }
 
+@media screen and (max-width: 880px) {
+  .elements {
+    padding-top: 36px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 20px 17px;
+  }
+}
+
 @media screen and (max-width: 320px) {
   .elements {
-    margin-top: 36px;
-    margin-left: 19px;
-    margin-right: 19px;
+    padding-top: 36px;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(6, 1fr);
     gap: 20px;

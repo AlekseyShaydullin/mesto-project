@@ -1,5 +1,6 @@
 .header {
-  margin: 45px auto 0;
+  margin:0 auto;
+  padding-top: 45px;
   max-width: 880px;
   display: flex;
   border-bottom: solid rgb(84, 84, 84, .7);
@@ -7,12 +8,15 @@
   box-sizing: border-box;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 880px) {
   .header {
-    max-width: 320px;
-    height: 56px;
-    margin-top: 28px;
-    margin-left: 0;
-    margin-right: 0;
+    max-width: 581px;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .header {
+    max-width: 599px;
+    padding-top: 28px;
   }
 }

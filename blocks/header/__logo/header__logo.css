@@ -5,9 +5,11 @@
   display: block;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 599px) {
   .header__logo {
+    width: 32.4%;
+    height: 43.6%;
     padding-left: 27px;
-    padding-bottom: 0;
+    padding-bottom: 31.6px;
   }
 }
