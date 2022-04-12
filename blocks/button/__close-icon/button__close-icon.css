@@ -1,4 +1,4 @@
-.button-close-icon {
+.button__close-icon {
   border: 0;
   padding: 0;
   background-color: transparent;
@@ -8,7 +8,7 @@
   transition: opacity .1s linear;
 }
 
-.button-close-icon:hover {
+.button__close-icon:hover {
   opacity: .6;
   cursor: pointer;
 }
