@@ -1,0 +1,10 @@
+.popup__profession {
+  width: 358px;
+  height: 27px;
+  margin: 30px 36px 0;
+  padding: 0;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 1px solid rgb(0, 0, 0, .2);
+}

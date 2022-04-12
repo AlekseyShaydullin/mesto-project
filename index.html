@@ -24,14 +24,14 @@
             <div class="profile__container">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
               <div class="profile__edit-button-box">
-                <img class="profile__edit-button" src="images/edit-button.png" alt="Кнопка ввода" />
+                <button class="button"><img class="profile__edit-button" src="images/edit-button.png" alt="Кнопка ввода" /></button>
               </div>
             </div>
             <p class="profile__profession">Исследователь океана</p>
           </div>
         </div>
         <div class="profile__add-button-border">
-          <img class="profile__add-button" src="images/add-button.png" alt="Кнопка добавить" />
+          <button class="button"><img class="profile__add-button" src="images/add-button.png" alt="Кнопка добавить" /></button>
         </div>
       </section>
       <!--Блок Elements-->
@@ -40,42 +40,42 @@
           <img class="element__foto" src="images/viborg.jpg" alt="Набережная с видом на Выборгский замок" />
           <div class="element__caption">
             <h2 class="element__caption-town">Выборг</h2>
-            <img class="element__caption-like" src="images/like-white.svg" alt="Лайк неактивный" />
+            <button class="button"><img class="element__caption-like" src="images/like-white.svg" alt="Лайк неактивный" /></button>
           </div>
         </div>
         <div class="element">
           <img class="element__foto" src="images/kabardino-balkariya.jpg" alt="Старое поселение на фоне гор" />
           <div class="element__caption">
             <h2 class="element__caption-town">Кабардино-Балкария</h2>
-            <img class="element__caption-like" src="images/like-white.svg" alt="Лайк неактивный" />
+            <button class="button"><img class="element__caption-like" src="images/like-white.svg" alt="Лайк неактивный" /></button>
           </div>
         </div>
         <div class="element">
           <img class="element__foto" src="images/kazan.png" alt="Ночной Кул-Шариф" />
           <div class="element__caption">
             <h2 class="element__caption-town">Казань</h2>
-            <img class="element__caption-like" src="images/like-white.svg" alt="Лайк неактивный" />
+            <button class="button"><img class="element__caption-like" src="images/like-white.svg" alt="Лайк неактивный" /></button>
           </div>
         </div>
         <div class="element">
           <img class="element__foto" src="images/lahdenpokhya.jpg" alt="Лес и озеро" />
           <div class="element__caption">
             <h2 class="element__caption-town">Лахденпохья</h2>
-            <img class="element__caption-like" src="images/like-white.svg" alt="Лайк неактивный" />
+            <button class="button"><img class="element__caption-like" src="images/like-white.svg" alt="Лайк неактивный" /></button>
           </div>
         </div>
         <div class="element">
           <img class="element__foto" src="images/yoshkar-ola.jpg" alt="Пряничные домики на набережной" />
           <div class="element__caption">
             <h2 class="element__caption-town">Йошкар-Ола</h2>
-            <img class="element__caption-like" src="images/like-white.svg" alt="Лайк неактивный" />
+            <button class="button"><img class="element__caption-like" src="images/like-white.svg" alt="Лайк неактивный" /></button>
           </div>
         </div>
         <div class="element">
           <img class="element__foto" src="images/teriberka.jpg" alt="Сломаный корабль на фоне северного сияние" />
           <div class="element__caption">
             <h2 class="element__caption-town">Териберка</h2>
-            <img class="element__caption-like" src="images/like-white.svg" alt="Лайк неактивный" />
+            <button class="button"><img class="element__caption-like" src="images/like-white.svg" alt="Лайк неактивный" /></button>
           </div>
         </div>
       </section>
@@ -84,6 +84,17 @@
     <footer class="footer">
       <h3 class="footer__copyright">&copy;2022 Mesto Russia</h3>
     </footer>
+    <div class="popup">
+      <div class="popup__container">
+        <form class="popup__form"></form>
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <input class="popup__name" type="text" id="name" value="" placeholder="name">
+          <input class="popup__profession" type="text" value="" placeholder="profession">
+          <button class="button-popup">Сохранить</button>
+        </form>
+        <button class="button-close-icon"><img class="popup__close-icon" src="images/close-icon.png" alt="Кнопка закрытия модального окна" /></button>
+      </div>
+    </div>
   </div>
 </body>
 </html>

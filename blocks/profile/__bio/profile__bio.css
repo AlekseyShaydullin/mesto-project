@@ -4,7 +4,7 @@
   justify-content: space-between;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 599px) {
   .profile__bio {
     width: 282px;
     flex-direction: column;
