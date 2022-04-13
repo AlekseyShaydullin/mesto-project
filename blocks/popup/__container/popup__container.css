@@ -7,3 +7,10 @@
   position: relative;
   z-index: 1;
 }
+
+@media screen and (max-width: 599px) {
+  .popup__container {
+    width: 282px;
+    height: 322px;
+  }
+}

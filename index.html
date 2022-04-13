@@ -24,14 +24,14 @@
             <div class="profile__container">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
               <div class="profile__edit-button-box">
-                <button class="button"><img class="profile__edit-button" src="images/edit-button.png" alt="Кнопка ввода" /></button>
+                <button class="profile__edit-button" type="button"></button>
               </div>
             </div>
-            <p class="profile__profession">Исследователь океана</p>
+            <p class="profile__about">Исследователь океана</p>
           </div>
         </div>
         <div class="profile__add-button-border">
-          <button class="button"><img class="profile__add-button" src="images/add-button.png" alt="Кнопка добавить" /></button>
+          <button class="profile__add-button" type="button"></button>
         </div>
       </section>
       <!--Блок Elements-->
@@ -40,42 +40,42 @@
           <img class="element__foto" src="images/viborg.jpg" alt="Набережная с видом на Выборгский замок" />
           <div class="element__caption">
             <h2 class="element__caption-town">Выборг</h2>
-            <button class="button"><img class="element__caption-like" src="images/like-white.svg" alt="Лайк неактивный" /></button>
+            <button class="element__button-like element__button-like_active" type="button"></button>
           </div>
         </div>
         <div class="element">
           <img class="element__foto" src="images/kabardino-balkariya.jpg" alt="Старое поселение на фоне гор" />
           <div class="element__caption">
             <h2 class="element__caption-town">Кабардино-Балкария</h2>
-            <button class="button"><img class="element__caption-like" src="images/like-white.svg" alt="Лайк неактивный" /></button>
+            <button class="element__button-like element__button-like_active" type="button"></button>
           </div>
         </div>
         <div class="element">
           <img class="element__foto" src="images/kazan.png" alt="Ночной Кул-Шариф" />
           <div class="element__caption">
             <h2 class="element__caption-town">Казань</h2>
-            <button class="button"><img class="element__caption-like" src="images/like-white.svg" alt="Лайк неактивный" /></button>
+            <button class="element__button-like element__button-like_active" type="button"></button>
           </div>
         </div>
         <div class="element">
           <img class="element__foto" src="images/lahdenpokhya.jpg" alt="Лес и озеро" />
           <div class="element__caption">
             <h2 class="element__caption-town">Лахденпохья</h2>
-            <button class="button"><img class="element__caption-like" src="images/like-white.svg" alt="Лайк неактивный" /></button>
+            <button class="element__button-like element__button-like_active" type="button"></button>
           </div>
         </div>
         <div class="element">
           <img class="element__foto" src="images/yoshkar-ola.jpg" alt="Пряничные домики на набережной" />
           <div class="element__caption">
             <h2 class="element__caption-town">Йошкар-Ола</h2>
-            <button class="button"><img class="element__caption-like" src="images/like-white.svg" alt="Лайк неактивный" /></button>
+            <button class="element__button-like element__button-like_active" type="button"></button>
           </div>
         </div>
         <div class="element">
           <img class="element__foto" src="images/teriberka.jpg" alt="Сломаный корабль на фоне северного сияние" />
           <div class="element__caption">
             <h2 class="element__caption-town">Териберка</h2>
-            <button class="button"><img class="element__caption-like" src="images/like-white.svg" alt="Лайк неактивный" /></button>
+            <button class="element__button-like element__button-like_active" type="button"></button>
           </div>
         </div>
       </section>
@@ -85,15 +85,15 @@
       <h3 class="footer__copyright">&copy;2022 Mesto Russia</h3>
     </footer>
     <!--Popup-->
-    <div class="popup">
+    <div class="popup popup_opened">
       <div class="popup__container">
-        <form class="popup__form"></form>
+        <form class="popup__form">
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input class="popup__input popup__input_data_name" type="text" id="" placeholder="name">
-          <input class="popup__input popup__input_data_profession" type="text" id="" placeholder="profession">
+          <input class="popup__input popup__input_data_name" type="text" name="userName" value="Жак-Ив Кусто">
+          <input class="popup__input popup__input_data_about" type="text" name="userAbout" value="Исследователь океана">
           <button class="popup__button" type="submit">Сохранить</button>
         </form>
-        <button class="button__close-icon"><img class="popup__close-icon" src="images/close-icon.png" alt="Кнопка закрытия модального окна" /></button>
+        <button class="popup__close-icon" type="button"></button>
       </div>
     </div>
   </div>

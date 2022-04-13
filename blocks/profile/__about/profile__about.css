@@ -1,4 +1,4 @@
-.profile__profession {
+.profile__about {
   margin: 0;
   padding-top: 16px;
   font-weight: 400;
@@ -10,7 +10,7 @@
 }
 
 @media screen and (max-width: 320px) {
-  .profile__profession {
+  .profile__about {
     padding-top: 14px;
     font-size: 14px;
     line-height: 17px;
