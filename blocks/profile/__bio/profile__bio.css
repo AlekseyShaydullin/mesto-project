@@ -1,12 +1,12 @@
 .profile__bio {
-  width: 486px;
+  max-width: 486px;
   display: flex;
   justify-content: space-between;
 }
 
 @media screen and (max-width: 599px) {
   .profile__bio {
-    width: 282px;
+    max-width: 282px;
     flex-direction: column;
     justify-content: start;
     align-items: center;
