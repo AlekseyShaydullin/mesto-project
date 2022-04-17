@@ -7,7 +7,7 @@
   grid-auto-rows: 1fr;
 }
 
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 896px) {
   .elements {
     padding-top: 36px;
     grid-template-columns: repeat(2, 1fr);

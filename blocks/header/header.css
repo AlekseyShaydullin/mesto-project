@@ -8,7 +8,7 @@
   box-sizing: border-box;
 }
 
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 896px) {
   .header {
     max-width: 581px;
   }

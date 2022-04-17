@@ -3,7 +3,7 @@
   margin: 0 auto;
 }
 
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 896px) {
   .content {
     max-width: 581px;
   }
