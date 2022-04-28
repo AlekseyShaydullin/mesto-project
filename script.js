@@ -7,28 +7,38 @@ const  cardBox = document.querySelector('.elements'); // коробка карт
 /*const  fotoCard = cardBox.querySelector('.element__foto'); // фотография карточки*/
 /*const  captionCard = cardBox.querySelector('.element__caption'); // подпись карточки*/
 /*const  textCard = cardBox.querySelector('.element__caption-town'); // текст подписи карточки*/
-const  likeCard = cardBox.querySelector('.element__button-like'); // кнопка не активного like карточки
+const  likeCards = document.querySelectorAll('.element__button-like'); // кнопка не активного like карточки
 const  addInfoButton = profileContainer.querySelector('.profile__edit-button'); // кнопка вызывающая окно редактирование профиля
 const  popupContainer = document.querySelector('.popup__container'); // попап контейнер
 const  popup = document.querySelector('.popup_profile-edit'); // для вызова попап редактировать профиль
-const  popupCardEdit = document.querySelector('.popup_element-edit'); // для вызова попап редактировать профиль
-const  closeAddInfoButton = popupContainer.querySelector('.popup__close-icon'); // кнопка закрытия модального окна
+/*const  popupCardEdit = document.querySelector('.popup_element-edit'); // для вызова попап редактировать профиль*/
+const  closeButtons = document.querySelectorAll('.popup__close-icon'); // кнопки закрытия модального окна
 const  formElement = popupContainer.querySelector('.popup__form'); // попап форма редактировать профиль
 const  nameInput = formElement.querySelector('.popup__input_data_name'); // строка ввода имени
 const  jobInput = formElement.querySelector('.popup__input_data_about'); // строка ввода профессии
 const  addCardButton = document.querySelector('.profile__add-button'); // кнопка вызывающая окно редактирование карточек
+const  saveButtons = document.querySelectorAll('.popup__button') // кнопка сохранения введенной информации в попапе
 
 
 function openAddInfo() {
   popup.classList.add('popup_opened');
 }
 
-function closeAddInfo() {
+function openAddCard() {
+  popup.classList.add('popup_opened');
+}
+
+function closeButton() {
   popup.classList.remove('popup_opened');
 }
 
 addInfoButton.addEventListener('click', openAddInfo);
-closeAddInfoButton.addEventListener('click', closeAddInfo);
+
+addCardButton.addEventListener('click', openAddCard);
+
+for (let i = 0; i < closeButtons.length; i++) {
+  closeButtons[i].addEventListener('click', closeButton)
+}
 
 function formSubmitHandler (evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.  
@@ -36,7 +46,11 @@ function formSubmitHandler (evt) {
   jobProfile.textContent = jobInput.value;
 }
 
-formElement.addEventListener('submit', formSubmitHandler); 
+for (let i = 0; i < saveButtons.length; i++) {
+  saveButtons[i].addEventListener('submit', formSubmitHandler)
+}
+
+/*formElement.addEventListener('submit', formSubmitHandler); */
 
 const initialCards = [
   {
@@ -66,7 +80,7 @@ const initialCards = [
 ]
 
 function addCardElement() {
-  for (let i=0; i <= 5; i += 1) {
+  for (let i=0; i <= 5; i++) {
     let card = initialCards[i];
   cardBox.insertAdjacentHTML('beforeend',`
   <article class="element">
@@ -83,13 +97,13 @@ function addCardElement() {
 
 addCardElement()
 
-function openAddCard() {
-  popupCardEdit.classList.add('popup_opened');
+
+function Addlike() {
+  likeCards.classList.add('element__button-like_active');
 }
 
-function closeAddCard() {
-  popupCardEdit.classList.remove('popup_opened');
+for (let i = 0; i < likeCards.length; i++) {
+  likeCards[i].addEventListener('click', Addlike)
 }
 
-addCardButton.addEventListener('click', openAddCard);
-closeAddInfoButton.addEventListener('click', closeAddCard);
+/*likeCard.addEventListener('click', Addlike)*/
