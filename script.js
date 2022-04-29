@@ -4,10 +4,10 @@ const  nameProfile = profileContainer.querySelector('.profile__name'); // имя
 const  jobProfile = profileContainer.querySelector('.profile__about'); // профессия владельца профайла
 const  cardBox = document.querySelector('.elements'); // коробка карточек
 /*const  card = cardBox.querySelector('.element'); // карточка*/
-/*const  fotoCard = cardBox.querySelector('.element__foto'); // фотография карточки*/
+const  fotoCard = cardBox.querySelector('.element__foto'); // фотография карточки
 /*const  captionCard = cardBox.querySelector('.element__caption'); // подпись карточки*/
-/*const  textCard = cardBox.querySelector('.element__caption-town'); // текст подписи карточки*/
-const  likeCards = document.querySelectorAll('.element__button-like'); // кнопка не активного like карточки
+const  textCard = cardBox.querySelector('.element__caption-town'); // текст подписи карточки
+const  likeCard = document.querySelector('.element__button-like'); // кнопка не активного like карточки
 const  addInfoButton = profileContainer.querySelector('.profile__edit-button'); // кнопка вызывающая окно редактирование профиля
 const  popupContainer = document.querySelector('.popup__container'); // попап контейнер
 const  popup = document.querySelector('.popup_profile-edit'); // для вызова попап редактировать профиль
@@ -97,13 +97,29 @@ function addCardElement() {
 
 addCardElement()
 
+function addNewCardElement() {}
 
-function Addlike() {
-  likeCards.classList.add('element__button-like_active');
+function formSubmitHandler (evt) {
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.  
+  fotoCard.src = fotoCard.value;
+  textCard.textContent = textCard.value;
 }
 
-for (let i = 0; i < likeCards.length; i++) {
+
+
+/*function Addlike() {
+  likeCard.classList.remove('element__button-like');  
+  likeCard.classList.add('element__button-like_active');  
+}
+
+Addlike()
+console.log(Addlike)*/
+
+/*for (let i = 0; i < likeCards.length; i++) {
   likeCards[i].addEventListener('click', Addlike)
-}
+}*/
 
-/*likeCard.addEventListener('click', Addlike)*/
+/*likeCard.addEventListener('click', function (event){
+
+})
+console.log(likeCard)*/
