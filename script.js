@@ -2,6 +2,7 @@ const  profile = document.querySelector('.profile');
 const  profileContainer = profile.querySelector('.profile__bio');
 const  nameProfile = profileContainer.querySelector('.profile__name'); // имя владельца профайла
 const  jobProfile = profileContainer.querySelector('.profile__about'); // профессия владельца профайла
+const  saveProfileButton = document.querySelector('.popup__saveProfile') // кнопка сохранения введенной информации в попапе
 const  cardBox = document.querySelector('.elements'); // коробка карточек
 /*const  card = cardBox.querySelector('.element'); // карточка*/
 const  fotoCard = document.querySelector('.element__foto'); // фотография карточки
@@ -17,7 +18,9 @@ const  closeButtons = document.querySelectorAll('.popup__close-icon'); // кно
 const  formUserAddInfo = popupContainer.querySelector('.popup__userAddInfo'); // попап форма редактировать профиль
 const  nameInput = formUserAddInfo.querySelector('.popup__input_data_name'); // строка ввода имени
 const  jobInput = formUserAddInfo.querySelector('.popup__input_data_about'); // строка ввода профессии
-const  saveCardButton = document.querySelector('.popup__button') // кнопка сохранения введенной информации в попапе
+const  saveCardButton = document.querySelector('.popup__saveCard') // кнопка сохранения введенной информации в попапе
+const  formUserAddCard = document.querySelector('.popup__cardAdd'); // попап форма редактировать профиль
+
 
 
 
@@ -79,7 +82,7 @@ function formSubmitHandler (evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.  
   nameProfile.textContent = nameInput.value;
   jobProfile.textContent = jobInput.value;
-
+  closeButton();
 }
 
 formUserAddInfo.addEventListener('submit', formSubmitHandler); 
@@ -104,11 +107,15 @@ function addNewCard(titleInputCard, photoInputCard) {
 
 function formSubmitCard (evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.  
-  img.src = photoInputCard;
-  img.alt = titleInputCard;
+  cardBox.prepend(addNewCard(titleInputCard.value, photoInputCard.value));
+  closeButton();
+  titleInputCard.value = '';
+  photoInputCard.value = '';
 }
 
-saveCardButton.addEventListener('submit', formSubmitCard); 
+
+
+formUserAddCard.addEventListener('submit', formSubmitCard); 
 
 initialCards.forEach(function(i) {
   cardBox.prepend(addNewCard(i.name, i.link))
