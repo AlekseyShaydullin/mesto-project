@@ -42,7 +42,7 @@
     <!--Popup - Редактировать профиль-->
     <div class="popup popup_profile-edit">
       <div class="popup__container">
-        <form class="popup__form" name="userAddInfo">
+        <form class="popup__form popup__userAddInfo" name="userAddInfo">
           <h2 class="popup__title">Редактировать профиль</h2>
           <input class="popup__input popup__input_data_name" type="text" name="userName" value="Жак-Ив Кусто">
           <input class="popup__input popup__input_data_about" type="text" name="userAbout" value="Исследователь океана">
@@ -54,7 +54,7 @@
     <!--Popup - Редактировать Element-->
     <div class="popup popup_element-edit">
       <div class="popup__container">
-        <form class="popup__form" name="cardAdd">
+        <form class="popup__form popup__cardAdd" name="cardAdd">
           <h2 class="popup__title">Новое место</h2>
           <input class="popup__input popup__input_data_title" type="text" name="titleCard" placeholder="Название">
           <input class="popup__input popup__input_data_link" type="text" name="linkCard" placeholder="Ссылка на картинку">
@@ -64,6 +64,16 @@
       </div>
     </div>
   </div>
+  <!--Template добавляемых карточек на сайт-->
+  <template id="card-template">
+    <article class="element">
+      <img class="element__foto" src="#" />
+      <div class="element__caption">
+        <h2 class="element__caption-town"></h2>
+        <button class="element__button-like" type="button" aria-label="Кнопка like"></button>
+      </div>
+    </article>
+  </template>
   <script src="script.js"></script>
 </body>
 </html>

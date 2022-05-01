@@ -4,53 +4,41 @@ const  nameProfile = profileContainer.querySelector('.profile__name'); // имя
 const  jobProfile = profileContainer.querySelector('.profile__about'); // профессия владельца профайла
 const  cardBox = document.querySelector('.elements'); // коробка карточек
 /*const  card = cardBox.querySelector('.element'); // карточка*/
-const  fotoCard = cardBox.querySelector('.element__foto'); // фотография карточки
-/*const  captionCard = cardBox.querySelector('.element__caption'); // подпись карточки*/
-const  textCard = cardBox.querySelector('.element__caption-town'); // текст подписи карточки
+const  fotoCard = document.querySelector('.element__foto'); // фотография карточки
+const  textCard = document.querySelector('.element__caption-town'); // текст подписи карточки
 const  likeCard = document.querySelector('.element__button-like'); // кнопка не активного like карточки
 const  addInfoButton = profileContainer.querySelector('.profile__edit-button'); // кнопка вызывающая окно редактирование профиля
+const  popup = document.querySelectorAll('.popup') // Popup
 const  popupContainer = document.querySelector('.popup__container'); // попап контейнер
-const  popup = document.querySelector('.popup_profile-edit'); // для вызова попап редактировать профиль
-/*const  popupCardEdit = document.querySelector('.popup_element-edit'); // для вызова попап редактировать профиль*/
-const  closeButtons = document.querySelectorAll('.popup__close-icon'); // кнопки закрытия модального окна
-const  formElement = popupContainer.querySelector('.popup__form'); // попап форма редактировать профиль
-const  nameInput = formElement.querySelector('.popup__input_data_name'); // строка ввода имени
-const  jobInput = formElement.querySelector('.popup__input_data_about'); // строка ввода профессии
+const  addInfoProfilePopup = document.querySelector('.popup_profile-edit'); // попап редактировать профиль
+const  addCardPopup = document.querySelector('.popup_element-edit'); // попап добавление карточек
 const  addCardButton = document.querySelector('.profile__add-button'); // кнопка вызывающая окно редактирование карточек
-const  saveButtons = document.querySelectorAll('.popup__button') // кнопка сохранения введенной информации в попапе
+const  closeButtons = document.querySelectorAll('.popup__close-icon'); // кнопки закрытия модального окна
+const  formUserAddInfo = popupContainer.querySelector('.popup__userAddInfo'); // попап форма редактировать профиль
+const  nameInput = formUserAddInfo.querySelector('.popup__input_data_name'); // строка ввода имени
+const  jobInput = formUserAddInfo.querySelector('.popup__input_data_about'); // строка ввода профессии
+/*const  saveCardButton = document.querySelector('.popup__button') // кнопка сохранения введенной информации в попапе*/
+
+
 
 
 function openAddInfo() {
-  popup.classList.add('popup_opened');
-}
-
-function openAddCard() {
-  popup.classList.add('popup_opened');
-}
-
-function closeButton() {
-  popup.classList.remove('popup_opened');
+  addInfoProfilePopup.classList.add('popup_opened');
 }
 
 addInfoButton.addEventListener('click', openAddInfo);
 
-addCardButton.addEventListener('click', openAddCard);
+
+function closeButton() {
+  for (let i = 0; i < popup.length; i++) {
+  popup[i].classList.remove('popup_opened');
+  }
+}
 
 for (let i = 0; i < closeButtons.length; i++) {
   closeButtons[i].addEventListener('click', closeButton)
 }
 
-function formSubmitHandler (evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.  
-  nameProfile.textContent = nameInput.value;
-  jobProfile.textContent = jobInput.value;
-}
-
-for (let i = 0; i < saveButtons.length; i++) {
-  saveButtons[i].addEventListener('submit', formSubmitHandler)
-}
-
-/*formElement.addEventListener('submit', formSubmitHandler); */
 
 const initialCards = [
   {
@@ -95,31 +83,74 @@ function addCardElement() {
   } 
 }
 
-addCardElement()
-
-function addNewCardElement() {}
+addCardElement();
 
 function formSubmitHandler (evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.  
-  fotoCard.src = fotoCard.value;
-  textCard.textContent = textCard.value;
+  nameProfile.textContent = nameInput.value;
+  jobProfile.textContent = jobInput.value;
 }
 
+formUserAddInfo.addEventListener('submit', formSubmitHandler); 
 
 
-/*function Addlike() {
-  likeCard.classList.remove('element__button-like');  
-  likeCard.classList.add('element__button-like_active');  
+const  formCardAdd = popupContainer.querySelector('.popup__cardAdd'); // попап форма редактировать профиль
+const  titleInputCard = document.querySelector('.popup__input_data_title'); // строка ввода имени
+const  photoInputCard = document.querySelector('.popup__input_data_link'); // строка ввода профессии
+
+/*let card = function addNewCard(titleInputCard, photoInputCard) {
+  const cardContainer = document.createElement('div');
+  cardContainer.classList.add('element');
+
+  const fotoCard = document.createElement('img');
+  fotoCard.classList.add('element__foto');
+  fotoCard.src = photoInputCard;
+
+  const cardCaption = document.createElement('div');
+  cardCaption.classList.add('element__caption');
+
+  const titleCard = document.createElement('h2');
+  titleCard.classList.add('element__caption-town');
+  titleCard.textContent = titleInputCard;
+
+  const likeButtonCard = document.createElement('button')
+  likeButtonCard.classList.add('element__button-like');
+
+  cardCaption.append(titleCard, likeButtonCard);
+
+  cardContainer.append(fotoCard, cardCaption);  
+
+  return addNewCard;
+};*/
+
+/*card(titleInputCard, photoInputCard);
+
+function renderCard(card, cardBox) {
+  cardBox.prepend(card);
 }
 
-Addlike()
-console.log(Addlike)*/
+renderCard(card, cardBox);
 
-/*for (let i = 0; i < likeCards.length; i++) {
-  likeCards[i].addEventListener('click', Addlike)
-}*/
+formCardAdd.addEventListener('submit', renderCard);*/
 
-/*likeCard.addEventListener('click', function (event){
+const card = function addNewCard(titleInputCard, photoInputCard) {
+  const cardTemplate = document.querySelector('#card-template').content;
+  const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
 
-})
-console.log(likeCard)*/
+  cardElement.querySelector('.element__foto').src = photoInputCard;
+  cardElement.querySelector('.element__caption-town').textContent = titleInputCard;
+
+  return addNewCard;
+}
+
+card(titleInputCard, photoInputCard);
+
+function renderCard(card, cardBox) {
+  cardBox.prepend(card);
+}
+
+function openAddCard() {
+  addCardPopup.classList.add('popup_opened');
+}
+
+addCardButton.addEventListener('click', openAddCard);
