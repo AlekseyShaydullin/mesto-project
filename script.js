@@ -98,40 +98,6 @@ const  formCardAdd = popupContainer.querySelector('.popup__cardAdd'); // поп�
 const  titleInputCard = document.querySelector('.popup__input_data_title'); // строка ввода имени
 const  photoInputCard = document.querySelector('.popup__input_data_link'); // строка ввода профессии
 
-/*let card = function addNewCard(titleInputCard, photoInputCard) {
-  const cardContainer = document.createElement('div');
-  cardContainer.classList.add('element');
-
-  const fotoCard = document.createElement('img');
-  fotoCard.classList.add('element__foto');
-  fotoCard.src = photoInputCard;
-
-  const cardCaption = document.createElement('div');
-  cardCaption.classList.add('element__caption');
-
-  const titleCard = document.createElement('h2');
-  titleCard.classList.add('element__caption-town');
-  titleCard.textContent = titleInputCard;
-
-  const likeButtonCard = document.createElement('button')
-  likeButtonCard.classList.add('element__button-like');
-
-  cardCaption.append(titleCard, likeButtonCard);
-
-  cardContainer.append(fotoCard, cardCaption);  
-
-  return addNewCard;
-};*/
-
-/*card(titleInputCard, photoInputCard);
-
-function renderCard(card, cardBox) {
-  cardBox.prepend(card);
-}
-
-renderCard(card, cardBox);
-
-formCardAdd.addEventListener('submit', renderCard);*/
 
 const card = function addNewCard(titleInputCard, photoInputCard) {
   const cardTemplate = document.querySelector('#card-template').content;
