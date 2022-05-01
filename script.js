@@ -17,7 +17,7 @@ const  closeButtons = document.querySelectorAll('.popup__close-icon'); // кно
 const  formUserAddInfo = popupContainer.querySelector('.popup__userAddInfo'); // попап форма редактировать профиль
 const  nameInput = formUserAddInfo.querySelector('.popup__input_data_name'); // строка ввода имени
 const  jobInput = formUserAddInfo.querySelector('.popup__input_data_about'); // строка ввода профессии
-/*const  saveCardButton = document.querySelector('.popup__button') // кнопка сохранения введенной информации в попапе*/
+const  saveCardButton = document.querySelector('.popup__button') // кнопка сохранения введенной информации в попапе
 
 
 
@@ -38,6 +38,13 @@ function closeButton() {
 for (let i = 0; i < closeButtons.length; i++) {
   closeButtons[i].addEventListener('click', closeButton)
 }
+
+function openAddCard() {
+  addCardPopup.classList.add('popup_opened');
+}
+
+addCardButton.addEventListener('click', openAddCard);
+
 
 
 const initialCards = [
@@ -67,28 +74,12 @@ const initialCards = [
   },
 ]
 
-function addCardElement() {
-  for (let i=0; i <= 5; i++) {
-    let card = initialCards[i];
-  cardBox.insertAdjacentHTML('beforeend',`
-  <article class="element">
-  <img class="element__foto" src="${card.link}" />
-  <div class="element__caption">
-    <h2 class="element__caption-town">${card.name}</h2>
-    <button class="element__button-like" type="button" aria-label="Кнопка like"></button>
-  </div>
-</article>
-  `
-  )
-  } 
-}
-
-addCardElement();
 
 function formSubmitHandler (evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.  
   nameProfile.textContent = nameInput.value;
   jobProfile.textContent = jobInput.value;
+
 }
 
 formUserAddInfo.addEventListener('submit', formSubmitHandler); 
@@ -97,26 +88,29 @@ formUserAddInfo.addEventListener('submit', formSubmitHandler);
 const  formCardAdd = popupContainer.querySelector('.popup__cardAdd'); // попап форма редактировать профиль
 const  titleInputCard = document.querySelector('.popup__input_data_title'); // строка ввода имени
 const  photoInputCard = document.querySelector('.popup__input_data_link'); // строка ввода профессии
+const  cardTemplate = document.querySelector('#card-template').content;
 
 
-const card = function addNewCard(titleInputCard, photoInputCard) {
-  const cardTemplate = document.querySelector('#card-template').content;
+function addNewCard(titleInputCard, photoInputCard) {  
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
+  const  img = cardElement.querySelector('.element__foto');
 
-  cardElement.querySelector('.element__foto').src = photoInputCard;
+  img.src = photoInputCard;
+  img.alt = titleInputCard;
   cardElement.querySelector('.element__caption-town').textContent = titleInputCard;
 
-  return addNewCard;
+  return cardElement;
 }
 
-card(titleInputCard, photoInputCard);
-
-function renderCard(card, cardBox) {
-  cardBox.prepend(card);
+function formSubmitCard (evt) {
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.  
+  img.src = photoInputCard;
+  img.alt = titleInputCard;
 }
 
-function openAddCard() {
-  addCardPopup.classList.add('popup_opened');
-}
+saveCardButton.addEventListener('submit', formSubmitCard); 
 
-addCardButton.addEventListener('click', openAddCard);
+initialCards.forEach(function(i) {
+  cardBox.prepend(addNewCard(i.name, i.link))
+})
+
