@@ -1,0 +1,5 @@
+.popup__container-image {
+  max-width: 75vw;
+  position: relative;
+  z-index: 3;  
+}

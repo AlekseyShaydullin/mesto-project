@@ -57,17 +57,29 @@
         <form class="popup__form popup__cardAdd" name="cardAdd">
           <h2 class="popup__title">Новое место</h2>
           <input class="popup__input popup__input_data_title" type="text" name="titleCard" placeholder="Название">
-          <input class="popup__input popup__input_data_link" type="text" name="linkCard" placeholder="Ссылка на картинку">
+          <input class="popup__input popup__input_data_link" type="text" name="linkCard"
+            placeholder="Ссылка на картинку">
           <button class="popup__button popup__saveCard" type="submit">Сохранить</button>
         </form>
         <button class="popup__close-icon" type="button" aria-label="Закрыть окно редактирования профиля"></button>
       </div>
     </div>
   </div>
+  <!--Popup - Открываение картинки-->
+  <div class="popup popup__image">
+    <div class="popup__container-image">
+      <figure class="popup__form popup__openFoto">
+        <img class="popup__foto" src="#" alt />
+        <figcaption class="popup__caption-foto"></figcaption>
+      </figure>
+      <button class="popup__close-icon" type="button" aria-label="Закрыть окно редактирования профиля"></button>
+    </div>
+  </div>
   <!--Template добавляемых карточек на сайт-->
   <template id="card-template">
     <article class="element">
       <img class="element__foto" src="#" alt />
+      <button class="element__button-trash" type="button" aria-label="Кнопка like"></button>
       <div class="element__caption">
         <h2 class="element__caption-town"></h2>
         <button class="element__button-like" type="button" aria-label="Кнопка like"></button>

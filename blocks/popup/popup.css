@@ -6,7 +6,11 @@
   top: 0;
   left: 0;
   color: #000;
-  display: none;
+  /*display: none;*/
   justify-content: center;
   align-items: center;
+  transition: opacity .3s ease-out;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
 }
