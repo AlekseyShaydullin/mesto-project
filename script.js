@@ -53,21 +53,37 @@ function openPopup(popup) {
 }
 
 // Открытие Popup окна - Profile:
-buttonAddInfo.addEventListener('click', () => openPopup(profilePopup));
+buttonAddInfo.addEventListener('click', () => {
+  nameInput.value = nameProfile.textContent;
+  jobInput.value = jobProfile.textContent;
+  openPopup(profilePopup);
+});
 
 // Закрытие Popup окон:
-function closePopup() {
-  popupList.forEach((popup) => popup.classList.remove('popup_opened'));
-}
 
-buttonCloseList.forEach(button => button.addEventListener('click', (event) => closePopup(event.target.closest('popup')))); 
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+};
+
+/*for (let i = 0; i < buttonCloseList.length; i++) {
+  buttonCloseList[i].addEventListener('click', closePopup(profilePopup)); 
+};*/
+
+/*buttonCloseList.forEach(function (popup) {
+  closePopup = popup.closet('.popup');
+  popup.addEventListener('click', () => closePopup(buttonCloseList));
+})*/
+
+/*buttonCloseList.forEach(button => button.addEventListener('click', (event) => closePopup(event.target.closest('popup')))); */
+
+//buttonCloseList.addEventListener('click', closePopup())
 
 // Сохранение внесенной информации в Popup окне - Profile:
 function formSubmitHandler (evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   nameProfile.textContent = nameInput.value;
   jobProfile.textContent = jobInput.value;
-  closePopup();
+  buttonCloseList.addEventListener('click', closePopup(profilePopup));
 }
 
 formUserAddInfo.addEventListener('submit', formSubmitHandler);
@@ -98,7 +114,7 @@ function addNewCard(titleInputCard, photoInputCard) {
     fotoPopup.src = img.src;
     fotoPopup.alt = img.alt;
     captionPopup.textContent = img.alt;
-    imagePopup.classList.add('popup_opened');
+    openPopup(imagePopup);
   });
 
   return cardElement;
@@ -111,7 +127,7 @@ initialCards.forEach((card) => cardBox.prepend(addNewCard(card.name, card.link))
 function formSubmitCard (evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   cardBox.prepend(addNewCard(titleInputCard.value, photoInputCard.value));
-  closePopup();
+  buttonCloseList.addEventListener('click', closePopup(cardPopup));
   titleInputCard.value = '';
   photoInputCard.value = '';
 }
