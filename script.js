@@ -19,6 +19,7 @@ const  photoInputCard = document.querySelector('.popup__input_data_link'); // с
 const  imagePopup = document.querySelector('.popup__image'); // попап Image
 const  fotoPopup = document.querySelector('.popup__foto'); // фото попапа Image
 const  captionPopup = document.querySelector('.popup__caption-foto'); // подпись фотографии попапа Image
+const  cardTemplate = document.querySelector('#card-template').content;
 // Массив ранее созданных карточек - Element:
 const initialCards = [
   {
@@ -47,7 +48,7 @@ const initialCards = [
   },
 ]
 
-// Открытие Popup окна - Profile:
+// Открытие Popup окна:
 function openPopup(popup) {
   popup.classList.add('popup_opened');
 }
@@ -60,30 +61,18 @@ buttonAddInfo.addEventListener('click', () => {
 });
 
 // Закрытие Popup окон:
+function closePopup(popup) { 
+  popup.classList.remove('popup_opened'); 
+}
 
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-};
-
-/*for (let i = 0; i < buttonCloseList.length; i++) {
-  buttonCloseList[i].addEventListener('click', closePopup(profilePopup)); 
-};*/
-
-/*buttonCloseList.forEach(function (popup) {
-  closePopup = popup.closet('.popup');
-  popup.addEventListener('click', () => closePopup(buttonCloseList));
-})*/
-
-/*buttonCloseList.forEach(button => button.addEventListener('click', (event) => closePopup(event.target.closest('popup')))); */
-
-//buttonCloseList.addEventListener('click', closePopup())
+buttonCloseList.forEach(button => button.addEventListener('click', (event) => closePopup(event.target.closest('.popup'))));  
 
 // Сохранение внесенной информации в Popup окне - Profile:
 function formSubmitHandler (evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   nameProfile.textContent = nameInput.value;
   jobProfile.textContent = jobInput.value;
-  buttonCloseList.addEventListener('click', closePopup(profilePopup));
+  closePopup(profilePopup);
 }
 
 formUserAddInfo.addEventListener('submit', formSubmitHandler);
@@ -92,8 +81,6 @@ formUserAddInfo.addEventListener('submit', formSubmitHandler);
 cardButtonAdd.addEventListener('click', () => openPopup(cardPopup));
 
 // Добавление новых карточек - Element:
-const  cardTemplate = document.querySelector('#card-template').content;
-
 function addNewCard(titleInputCard, photoInputCard) {
   const  cardElement = cardTemplate.querySelector('.element').cloneNode(true);
   const  img = cardElement.querySelector('.element__foto');
@@ -120,14 +107,14 @@ function addNewCard(titleInputCard, photoInputCard) {
   return cardElement;
 }
 
-// Добавляем карточки
+// Добавляем карточки:
 initialCards.forEach((card) => cardBox.prepend(addNewCard(card.name, card.link)));
 
 // Сохранение внесенной информации в Popup окне - Element:
 function formSubmitCard (evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   cardBox.prepend(addNewCard(titleInputCard.value, photoInputCard.value));
-  buttonCloseList.addEventListener('click', closePopup(cardPopup));
+  closePopup(cardPopup);
   titleInputCard.value = '';
   photoInputCard.value = '';
 }
