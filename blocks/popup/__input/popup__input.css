@@ -1,6 +1,6 @@
 .popup__input {
   max-width: 358px;
-  width:100%;
+  width: 100%;
   height: 27px;
   padding: 0;
   margin: 30px 36px 0;
@@ -11,6 +11,11 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
+}
+
+.popup__input:invalid {
+  border-bottom: 1px solid #FF0000;
+  color: #C4C4C4;
 }
 
 .popup__input:nth-child(2n) {
