@@ -26,6 +26,11 @@
   outline: none;
 }
 
+.popup__input_type_error {
+  border-bottom-color: red;
+  color: #C4C4C4;
+}
+
 @media screen and (max-width: 599px) {
   .popup__input {
     width: 238px;
