@@ -13,22 +13,12 @@
   line-height: 17px;
 }
 
-.popup__input:invalid {
-  border-bottom: 1px solid #FF0000;
-  color: #C4C4C4;
-}
-
 .popup__input:nth-child(2n) {
   margin: 54px 36px 0;
 }
 
 .popup__input:focus {
   outline: none;
-}
-
-.popup__input_type_error {
-  border-bottom-color: red;
-  color: #C4C4C4;
 }
 
 @media screen and (max-width: 599px) {
