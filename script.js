@@ -49,7 +49,7 @@ const initialCards = [
   },
 ]
 
-//Массив данных для Валидации:
+//Объект данных для Валидации:
 const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -62,6 +62,8 @@ const validationConfig = {
 // Открытие Popup окна:
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', escClose);
+  popup.addEventListener('click', overlayClose);
 }
 
 // Открытие Popup окна - Profile:
@@ -75,6 +77,8 @@ buttonAddInfo.addEventListener('click', () => {
 // Закрытие Popup окон:
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', escClose);
+  popup.removeEventListener('click', overlayClose);
   formUserAddCard.reset();
 }
 
@@ -164,16 +168,10 @@ const checkInputValidity = (formElement, inputElement) => {
 
 const toggleButtonState = (inputList, buttonElement, validationConfig) => {
   const { inactiveButtonClass, ...anyConfig } = validationConfig;
-  console.log(inactiveButtonClass);
-  console.log(buttonElement);
   if (hasInvalidInput(inputList)) {
-    console.log(inactiveButtonClass);
-    console.log(buttonElement);
     buttonElement.classList.add(inactiveButtonClass);
     buttonElement.disabled = true;
   } else {
-    console.log(inactiveButtonClass);
-    console.log(buttonElement);
     buttonElement.classList.remove(inactiveButtonClass);
     buttonElement.disabled = false;
   }
@@ -246,3 +244,15 @@ enableValidation();
 
 // Закрытие модалок Оверлей и Esc
 
+function escClose(evt) {
+  if (evt.keyCode === 27) {
+    closePopup(document.querySelector('.popup_opened'));
+  }
+}
+
+function overlayClose(evt) {
+  const popupOverlay = document.querySelector('.popup_opened');
+  if (evt.target === popupOverlay) {
+    closePopup(popupOverlay);
+  }
+}
