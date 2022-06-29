@@ -1,5 +1,5 @@
 import { validationConfig } from '../index.js';
-import { setEventListeners } from './units.js';
+import { setEventListeners } from '../components/units.js';
 
 const showInputError = (formElement, inputElement, validationConfig) => {
   const { inputErrorClass, errorClass } = validationConfig;
@@ -70,4 +70,4 @@ const clearValidation = (formItem) => {
   });
 }
 
-export { toggleButtonState, checkInputValidity, enableValidation, clearValidation, hasInvalidInput }
+export { toggleButtonState, checkInputValidity, enableValidation, clearValidation, hasInvalidInput };

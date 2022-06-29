@@ -1,5 +1,6 @@
-import { openPopup } from './modal';
-import { enableValidation, clearValidation } from './validate.js'
+import './pages/index.css';
+import { openPopup } from './components/modal';
+import { enableValidation, clearValidation } from './components/validate.js'
 
 const profile = document.querySelector('.profile');
 const profileContainer = profile.querySelector('.profile__bio');

@@ -1,5 +1,5 @@
-import { initialCards } from './cards.js';
-import { openPopup, titleInputCard, photoInputCard } from './modal.js';
+import { initialCards } from './components/cards.js';
+import { openPopup, titleInputCard, photoInputCard } from './components/modal.js';
 
 
 const cardTemplate = document.querySelector('#card-template').content;

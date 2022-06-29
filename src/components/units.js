@@ -1,5 +1,4 @@
-import { validationConfig } from '../index.js';
-import { checkInputValidity, toggleButtonState } from './validate.js';
+//import { checkInputValidity, toggleButtonState } from './components/validate.js';
 
 const setEventListeners = (formElement, validationConfig) => {
   const { inputSelector, submitButtonSelector, ...anyConfig } = validationConfig;

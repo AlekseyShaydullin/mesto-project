@@ -4,29 +4,18 @@
   "description": "Добропожаловать в социальную сеть путешественника.",
   "main": "index.js",
   "scripts": {
-<<<<<<< HEAD
-    "test": "echo \"Error: no test specified\" && exit 1"
-=======
     "build": "webpack --mode production",
     "dev": "webpack serve"
->>>>>>> f47afcac2e8d6eccec009dc0bb6c70015d05436a
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AlekseyShaydullin/mesto-project.git"
   },
-<<<<<<< HEAD
-  "author": "Shaydullin Aleksey",
-=======
   "author": "Aleksey Shaydullin",
->>>>>>> f47afcac2e8d6eccec009dc0bb6c70015d05436a
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/AlekseyShaydullin/mesto-project/issues"
   },
-<<<<<<< HEAD
-  "homepage": "https://github.com/AlekseyShaydullin/mesto-project#readme"
-=======
   "homepage": "https://github.com/AlekseyShaydullin/mesto-project#readme",
   "devDependencies": {
     "@babel/core": "^7.18.6",
@@ -46,5 +35,4 @@
   "dependencies": {
     "core-js": "^3.23.3"
   }
->>>>>>> f47afcac2e8d6eccec009dc0bb6c70015d05436a
 }
