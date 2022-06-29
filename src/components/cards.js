@@ -1,27 +1,34 @@
+import viborgImage from './images/viborg.jpg';
+import kabardinkaImage from './images/kabardino-balkariya.jpg';
+import kazanImage from './images/kazan.png';
+import lahdenpokhyaImage from './images/lahdenpokhya.jpg';
+import yoshkarOlaImage from './images/yoshkar-ola.jpg';
+import teriberka from './images/teriberka.jpg';
+
 const initialCards = [
   {
     name: 'Выборг',
-    link: 'images/viborg.jpg'
+    link: viborgImage
   },
   {
     name: 'Кабардино-Балкария',
-    link: 'images/kabardino-balkariya.jpg'
+    link: kabardinkaImage
   },
   {
     name: 'Казань',
-    link: 'images/kazan.png'
+    link: kazanImage
   },
   {
     name: 'Лахденпохья',
-    link: 'images/lahdenpokhya.jpg'
+    link: lahdenpokhyaImage
   },
   {
     name: 'Йошкар-Ола',
-    link: 'images/yoshkar-ola.jpg'
+    link: yoshkarOlaImage
   },
   {
     name: 'Териберка',
-    link: 'images/teriberka.jpg'
+    link: teriberka
   },
 ]
 

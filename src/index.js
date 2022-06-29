@@ -1,5 +1,5 @@
 import './pages/index.css';
-import { openPopup } from './components/modal';
+import { openPopup, formSubmitHandler } from './components/modal';
 import { enableValidation, clearValidation } from './components/validate.js'
 
 const profile = document.querySelector('.profile');
@@ -31,6 +31,8 @@ buttonAddInfo.addEventListener('click', () => {
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
 });
+
+formUserAddInfo.addEventListener('submit', formSubmitHandler);
 
 // Открытие Popup окна - Element:
 cardButtonAdd.addEventListener('click', () => {

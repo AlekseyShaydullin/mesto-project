@@ -1,11 +1,11 @@
-import { initialCards } from './components/cards.js';
+import { initialCards, formUserAddCard } from './components/cards.js';
 import { openPopup, titleInputCard, photoInputCard } from './components/modal.js';
-
 
 const cardTemplate = document.querySelector('#card-template').content;
 const imagePopup = document.querySelector('.popup__image'); // попап Image
 const captionPopup = document.querySelector('.popup__caption-foto'); // подпись фотографии попапа Image
 const fotoPopup = document.querySelector('.popup__foto'); // фото попапа Image
+const cardBox = document.querySelector('.elements'); // коробка карточек
 
 // Добавление новых карточек - Element:
 function addNewCard(titleInputCard, photoInputCard) {
@@ -37,3 +37,14 @@ function addNewCard(titleInputCard, photoInputCard) {
 // Добавляем карточки:
 initialCards.forEach((card) => cardBox.prepend(addNewCard(card.name, card.link)));
 
+// Сохранение внесенной информации в Popup окне - Element:
+function formSubmitCard(evt) {
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+  cardBox.prepend(addNewCard(titleInputCard.value, photoInputCard.value));
+  closePopup(cardPopup);
+  formUserAddCard.reset();
+}
+
+formUserAddCard.addEventListener('submit', formSubmitCard);
+
+export { formSubmitCard };
