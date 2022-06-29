@@ -1,8 +1,7 @@
-import { jobProfile, nameProfile } from '../index.js';
+import { jobProfile, nameProfile, profilePopup, cardPopup } from '../index.js';
 
 const titleInputCard = document.querySelector('.popup__input_data_title'); // строка ввода названия карточки
 const photoInputCard = document.querySelector('.popup__input_data_link'); // строка ввода ссылки
-const cardPopup = document.querySelector('.popup_element-edit'); // попап добавление карточек
 const cardBox = document.querySelector('.elements'); // коробка карточек
 const buttonCloseList = document.querySelectorAll('.popup__close-icon'); // кнопки закрытия модального окна
 const formUserAddCard = document.querySelector('.popup__cardAdd'); // попап форма редактировать карточку

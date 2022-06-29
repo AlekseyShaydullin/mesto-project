@@ -39,4 +39,4 @@ cardButtonAdd.addEventListener('click', () => {
 
 enableValidation();
 
-export { nameProfile, jobProfile, validationConfig };
+export { nameProfile, jobProfile, validationConfig, profilePopup, cardPopup };
