@@ -70,4 +70,4 @@ const clearValidation = (formItem) => {
   });
 }
 
-export { toggleButtonState, checkInputValidity, enableValidation, clearValidation }
+export { toggleButtonState, checkInputValidity, enableValidation, clearValidation, hasInvalidInput }
