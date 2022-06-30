@@ -1,9 +1,9 @@
-import viborgImage from './images/viborg.jpg';
-import kabardinkaImage from './images/kabardino-balkariya.jpg';
-import kazanImage from './images/kazan.png';
-import lahdenpokhyaImage from './images/lahdenpokhya.jpg';
-import yoshkarOlaImage from './images/yoshkar-ola.jpg';
-import teriberka from './images/teriberka.jpg';
+import viborgImage from '../images/viborg.jpg';
+import kabardinkaImage from '../images/kabardino-balkariya.jpg';
+import kazanImage from '../images/kazan.png';
+import lahdenpokhyaImage from '../images/lahdenpokhya.jpg';
+import yoshkarOlaImage from '../images/yoshkar-ola.jpg';
+import teriberka from '../images/teriberka.jpg';
 
 const initialCards = [
   {

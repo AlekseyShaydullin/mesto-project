@@ -1,5 +1,6 @@
 import './pages/index.css';
-import { openPopup, formSubmitHandler } from './components/modal';
+import './components/card.js';
+import { openPopup, formSubmitHandler } from './components/modal.js';
 import { enableValidation, clearValidation } from './components/validate.js'
 
 const profile = document.querySelector('.profile');
@@ -42,4 +43,4 @@ cardButtonAdd.addEventListener('click', () => {
 
 enableValidation();
 
-export { nameProfile, jobProfile, validationConfig, profilePopup, cardPopup };
+export { nameProfile, jobProfile, validationConfig, profilePopup, cardPopup, nameInput, jobInput };

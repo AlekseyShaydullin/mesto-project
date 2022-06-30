@@ -1,4 +1,4 @@
-import { jobProfile, nameProfile, profilePopup, cardPopup, formUserAddInfo } from '../index.js';
+import { jobProfile, nameProfile, profilePopup, jobInput, nameInput } from '../index';
 
 const titleInputCard = document.querySelector('.popup__input_data_title'); // строка ввода названия карточки
 const photoInputCard = document.querySelector('.popup__input_data_link'); // строка ввода ссылки
@@ -45,4 +45,4 @@ function overlayClose(evt) {
   }
 }
 
-export { openPopup, titleInputCard, photoInputCard, formSubmitHandler };
+export { openPopup, titleInputCard, photoInputCard, formSubmitHandler, formUserAddCard, closePopup };

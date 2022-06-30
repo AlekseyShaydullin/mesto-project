@@ -1,4 +1,4 @@
-import { validationConfig } from '../index.js';
+import { validationConfig } from '../index';
 
 const showInputError = (formElement, inputElement, validationConfig) => {
   const { inputErrorClass, errorClass } = validationConfig;
