@@ -1,4 +1,5 @@
 import './pages/index.css';
+import './components/card';
 import { openPopup, formSubmitHandler } from './components/modal';
 import { enableValidation, clearValidation } from './components/validate.js'
 
