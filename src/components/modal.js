@@ -45,4 +45,4 @@ function overlayClose(evt) {
   }
 }
 
-export { openPopup, titleInputCard, photoInputCard, formSubmitHandler };
+export { openPopup, titleInputCard, photoInputCard, formSubmitHandler, formUserAddCard };
