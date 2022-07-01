@@ -1,7 +1,8 @@
 import './pages/index.css';
-import './components/card.js';
-import { openPopup, formSubmitHandler } from './components/modal.js';
+import { createCard } from './components/card.js';
+import { openPopup, closePopup } from './components/modal.js';
 import { enableValidation, clearValidation } from './components/validate.js'
+import { initialCards } from './components/cards';
 
 const profile = document.querySelector('.profile');
 const profileContainer = profile.querySelector('.profile__bio');
@@ -14,16 +15,12 @@ const cardButtonAdd = document.querySelector('.profile__add-button'); // кно�
 const formUserAddInfo = document.querySelector('.popup__userAddInfo'); // попап форма редактировать профиль
 const nameInput = formUserAddInfo.querySelector('.popup__input_data_name'); // строка ввода имени
 const jobInput = formUserAddInfo.querySelector('.popup__input_data_about'); // строка ввода профессии
+const cardBox = document.querySelector('.elements'); // коробка карточек
+const formUserAddCard = document.querySelector('.popup__cardAdd'); // попап форма редактировать карточку
+const titleInputCard = document.querySelector('.popup__input_data_title'); // строка ввода названия карточки
+const photoInputCard = document.querySelector('.popup__input_data_link'); // строка ввода ссылки
 
-//Объект данных для Валидации:
-const validationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
-};
+
 
 // Открытие Popup окна - Profile:
 buttonAddInfo.addEventListener('click', () => {
@@ -33,7 +30,15 @@ buttonAddInfo.addEventListener('click', () => {
   jobInput.value = jobProfile.textContent;
 });
 
-formUserAddInfo.addEventListener('submit', formSubmitHandler);
+formUserAddInfo.addEventListener('submit', submitProfileForm);
+
+// Сохранение внесенной информации в Popup окне - Profile:
+function submitProfileForm(evt) {
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+  nameProfile.textContent = nameInput.value;
+  jobProfile.textContent = jobInput.value;
+  closePopup(profilePopup);
+}
 
 // Открытие Popup окна - Element:
 cardButtonAdd.addEventListener('click', () => {
@@ -41,6 +46,21 @@ cardButtonAdd.addEventListener('click', () => {
   clearValidation(cardPopup);
 });
 
+// Добавляем карточки:
+initialCards.forEach((card) => cardBox.prepend(createCard(card.name, card.link)));
+
+// Сохранение внесенной информации в Popup окне - Element:
+function submitCardForm(evt) {
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+  cardBox.prepend(createCard(titleInputCard.value, photoInputCard.value));
+  closePopup(cardPopup);
+  formUserAddCard.reset();
+}
+
+formUserAddCard.addEventListener('submit', submitCardForm);
+
+
+
 enableValidation();
 
-export { nameProfile, jobProfile, validationConfig, profilePopup, cardPopup, nameInput, jobInput };
+export { nameProfile, jobProfile, profilePopup, cardPopup, nameInput, jobInput };

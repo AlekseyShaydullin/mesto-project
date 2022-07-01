@@ -1,29 +1,26 @@
-import { initialCards } from './cards';
 import { openPopup, closePopup, titleInputCard, photoInputCard, formUserAddCard } from './modal';
-import { cardPopup } from '../index';
 
 const cardTemplate = document.querySelector('#card-template').content;
 const imagePopup = document.querySelector('.popup__image'); // попап Image
 const captionPopup = document.querySelector('.popup__caption-foto'); // подпись фотографии попапа Image
 const fotoPopup = document.querySelector('.popup__foto'); // фото попапа Image
-const cardBox = document.querySelector('.elements'); // коробка карточек
+
 
 // Добавление новых карточек - Element:
-function addNewCard(titleInputCard, photoInputCard) {
+function createCard(titleInputCard, photoInputCard) {
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
   const img = cardElement.querySelector('.element__foto');
   const captionCard = cardElement.querySelector('.element__caption');
+  const likeCard = captionCard.querySelector('.element__button-like');
+
   img.src = photoInputCard;
   img.alt = titleInputCard;
   cardElement.querySelector('.element__caption-town').textContent = titleInputCard;
   // Реализация конпки Like:
-  captionCard.querySelector('.element__button-like').addEventListener('click', evt => evt.target.classList.toggle('element__button-like_active'));
+  likeCard.addEventListener('click', getLike);
   // Реализация кнопки Trash:
   const buttonTrashCard = cardElement.querySelector('.element__button-trash'); // кнопка удалить
-  buttonTrashCard.addEventListener('click', () => {
-    const cardElement = buttonTrashCard.closest('.element');
-    cardElement.remove();
-  })
+  buttonTrashCard.addEventListener('click', trash);
   // Открытие Popup окна - Image:
   img.addEventListener('click', () => {
     fotoPopup.src = img.src;
@@ -35,17 +32,13 @@ function addNewCard(titleInputCard, photoInputCard) {
   return cardElement;
 }
 
-// Добавляем карточки:
-initialCards.forEach((card) => cardBox.prepend(addNewCard(card.name, card.link)));
+//Like
+const getLike = evt => evt.target.classList.toggle('element__button-like_active');
 
-// Сохранение внесенной информации в Popup окне - Element:
-function formSubmitCard(evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-  cardBox.prepend(addNewCard(titleInputCard.value, photoInputCard.value));
-  closePopup(cardPopup);
-  formUserAddCard.reset();
+//Trash
+const trash = () => {
+  const cardElement = buttonTrashCard.closest('.element');
+  cardElement.remove();
 }
 
-formUserAddCard.addEventListener('submit', formSubmitCard);
-
-export { formSubmitCard };
+export { createCard }
