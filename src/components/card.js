@@ -5,7 +5,6 @@ const imagePopup = document.querySelector('.popup__image'); // попап Image
 const captionPopup = document.querySelector('.popup__caption-foto'); // подпись фотографии попапа Image
 const fotoPopup = document.querySelector('.popup__foto'); // фото попапа Image
 
-
 // Добавление новых карточек - Element:
 function createCard(titleInputCard, photoInputCard) {
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
@@ -20,7 +19,13 @@ function createCard(titleInputCard, photoInputCard) {
   likeCard.addEventListener('click', getLike);
   // Реализация кнопки Trash:
   const buttonTrashCard = cardElement.querySelector('.element__button-trash'); // кнопка удалить
-  buttonTrashCard.addEventListener('click', trash);
+  buttonTrashCard.addEventListener('click', deleteCard(buttonTrashCard));
+  /*
+    buttonTrashCard.addEventListener('click', () => {
+      const cardElement = buttonTrashCard.closest('.element');
+      cardElement.remove();
+  */
+
   // Открытие Popup окна - Image:
   img.addEventListener('click', () => {
     fotoPopup.src = img.src;
@@ -36,9 +41,16 @@ function createCard(titleInputCard, photoInputCard) {
 const getLike = evt => evt.target.classList.toggle('element__button-like_active');
 
 //Trash
-const trash = () => {
-  const cardElement = buttonTrashCard.closest('.element');
-  cardElement.remove();
+//const deleteCard = evt => evt.target.document.querySelector('.element').remove();
+
+
+function deleteCard(buttonTrashCard) {
+  let checker = false;
+  buttonTrashCard.onclick = () => checker = true;
+  if (hash == '' && checker === true) {
+    const deletecardElement = buttonTrashCard.closest('.element');
+    deletecardElement.remove();
+  }
 }
 
 export { createCard }

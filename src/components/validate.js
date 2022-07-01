@@ -47,7 +47,7 @@ const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => !inputElement.validity.valid);
 }
 
-const enableValidation = (validationConfig) => {
+const enableValidation = () => {
   const { formSelector, ...anyConfig } = validationConfig;
   const formList = Array.from(document.querySelectorAll(formSelector));
   formList.forEach(formElement => setEventListeners(formElement, anyConfig));
@@ -84,7 +84,7 @@ const resetValidation = (formElement, validationConfig) => {
   buttonElement.classList.add(inactiveButtonClass);
 }
 
-const clearValidation = (formItem, validationConfig) => {
+const clearValidation = (formItem) => {
   const { formSelector, ...anyConfig } = validationConfig;
   const formList = Array.from(formItem.querySelectorAll(formSelector));
   formList.forEach(formElement => {
