@@ -48,9 +48,9 @@ const hasInvalidInput = (inputList) => {
 }
 
 const enableValidation = () => {
-  const { formSelector, ...anyConfig } = validationConfig;
+  const { formSelector } = validationConfig;
   const formList = Array.from(document.querySelectorAll(formSelector));
-  formList.forEach(formElement => setEventListeners(formElement, anyConfig));
+  formList.forEach(formElement => setEventListeners(formElement, validationConfig));
 };
 
 const setEventListeners = (formElement, validationConfig) => {
@@ -93,18 +93,4 @@ const clearValidation = (formItem) => {
   });
 }
 
-const removeEventListeners = (formElement, validationConfig) => {
-  const { inputSelector, submitButtonSelector, ...anyConfig } = validationConfig;
-  const inputList = Array.from(formElement.querySelectorAll(inputSelector));
-  const buttonElement = formElement.querySelector(submitButtonSelector);
-  formElement.removeEventListener("submit", resetDefaultAction);
-  inputList.forEach(inputElement => {
-    inputElement.removeEventListener('input', () => {
-      checkInputValidity(formElement, inputElement, anyConfig);
-      toggleButtonState(buttonElement, inputList, anyConfig);
-    });
-  });
-}
-
-
-export { toggleButtonState, checkInputValidity, enableValidation, clearValidation, hasInvalidInput, setEventListeners, removeEventListeners };
+export { enableValidation, clearValidation };

@@ -20,8 +20,6 @@ const formUserAddCard = document.querySelector('.popup__cardAdd'); // попап
 const titleInputCard = document.querySelector('.popup__input_data_title'); // строка ввода названия карточки
 const photoInputCard = document.querySelector('.popup__input_data_link'); // строка ввода ссылки
 
-
-
 // Открытие Popup окна - Profile:
 buttonAddInfo.addEventListener('click', () => {
   openPopup(profilePopup);
@@ -34,7 +32,7 @@ formUserAddInfo.addEventListener('submit', submitProfileForm);
 
 // Сохранение внесенной информации в Popup окне - Profile:
 function submitProfileForm(evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+  evt.preventDefault();
   nameProfile.textContent = nameInput.value;
   jobProfile.textContent = jobInput.value;
   closePopup(profilePopup);
@@ -51,7 +49,7 @@ initialCards.forEach((card) => cardBox.prepend(createCard(card.name, card.link))
 
 // Сохранение внесенной информации в Popup окне - Element:
 function submitCardForm(evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+  evt.preventDefault();
   cardBox.prepend(createCard(titleInputCard.value, photoInputCard.value));
   closePopup(cardPopup);
   formUserAddCard.reset();
@@ -59,8 +57,4 @@ function submitCardForm(evt) {
 
 formUserAddCard.addEventListener('submit', submitCardForm);
 
-
-
 enableValidation();
-
-export { nameProfile, jobProfile, profilePopup, cardPopup, nameInput, jobInput };

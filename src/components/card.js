@@ -1,4 +1,4 @@
-import { openPopup, closePopup, titleInputCard, photoInputCard, formUserAddCard } from './modal';
+import { openPopup } from './modal';
 
 const cardTemplate = document.querySelector('#card-template').content;
 const imagePopup = document.querySelector('.popup__image'); // попап Image
@@ -11,6 +11,7 @@ function createCard(titleInputCard, photoInputCard) {
   const img = cardElement.querySelector('.element__foto');
   const captionCard = cardElement.querySelector('.element__caption');
   const likeCard = captionCard.querySelector('.element__button-like');
+  const buttonTrashCard = cardElement.querySelector('.element__button-trash'); // кнопка удалить
 
   img.src = photoInputCard;
   img.alt = titleInputCard;
@@ -18,39 +19,25 @@ function createCard(titleInputCard, photoInputCard) {
   // Реализация конпки Like:
   likeCard.addEventListener('click', getLike);
   // Реализация кнопки Trash:
-  const buttonTrashCard = cardElement.querySelector('.element__button-trash'); // кнопка удалить
-  buttonTrashCard.addEventListener('click', deleteCard(buttonTrashCard));
-  /*
-    buttonTrashCard.addEventListener('click', () => {
-      const cardElement = buttonTrashCard.closest('.element');
-      cardElement.remove();
-  */
-
+  buttonTrashCard.addEventListener('click', deleteCard);
   // Открытие Popup окна - Image:
-  img.addEventListener('click', () => {
-    fotoPopup.src = img.src;
-    fotoPopup.alt = img.alt;
-    captionPopup.textContent = img.alt;
-    openPopup(imagePopup);
-  });
+  img.addEventListener('click', renderImage);
 
   return cardElement;
 }
 
-//Like
+//Like:
 const getLike = evt => evt.target.classList.toggle('element__button-like_active');
 
-//Trash
-//const deleteCard = evt => evt.target.document.querySelector('.element').remove();
+//Trash:
+const deleteCard = evt => evt.target.closest('.element').remove();
 
-
-function deleteCard(buttonTrashCard) {
-  let checker = false;
-  buttonTrashCard.onclick = () => checker = true;
-  if (hash == '' && checker === true) {
-    const deletecardElement = buttonTrashCard.closest('.element');
-    deletecardElement.remove();
-  }
+//Отрисовка модального окна Image:
+const renderImage = (evt) => {
+  fotoPopup.src = evt.target.src;
+  fotoPopup.alt = evt.target.alt;
+  captionPopup.textContent = evt.target.alt;
+  openPopup(imagePopup);
 }
 
 export { createCard }
