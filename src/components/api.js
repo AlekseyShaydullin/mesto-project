@@ -1,4 +1,4 @@
-import { data } from "browserslist"
+import { data } from "autoprefixer"
 
 const apiConfig = {
   serverUrl: 'https://nomoreparties.co/v1/plus-cohort-12',
@@ -16,22 +16,35 @@ const checkConnect = res => {
   return res.json()
 }
 
-//console.log(checkConnect)
 
-function getCards() {
+const getCards = async () => {
   return fetch(`${apiConfig.serverUrl}/cards`, {
     headers: apiConfig.headers,
   })
     .then(res => checkConnect(res))
 }
 
-const cardData = {
-  name: '',
-  link: '',
-  likes: '',
-  owner: {
+getCards()
+  .then(data => console.log(data))
 
-  }
+const getUserId = async () => {
+  return fetch(`${apiConfig.serverUrl}/users/me`, {
+    headers: apiConfig.headers,
+  })
+    .then(res => checkConnect(res))
 }
 
-export { apiConfig, getCards };
+getUserId()
+  .then(id => console.log(id));
+
+
+const editProfileData = async (user) => {
+  return fetch(`${apiConfig.serverUrl}/users/me`, {
+    method: 'PATCH',
+    headers: apiConfig.headers,
+    body: JSON.stringify(user),
+  })
+    .then(res => checkConnect(res))
+}
+
+export { apiConfig, getUserId, getCards, editProfileData };

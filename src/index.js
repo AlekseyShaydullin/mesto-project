@@ -1,9 +1,8 @@
 import './pages/index.css';
 import { createCard } from './components/card.js';
 import { openPopup, closePopup } from './components/modal.js';
-import { enableValidation, clearValidation } from './components/validate.js'
-//import { initialCards } from './components/cards';
-import { getCards } from './components/api';
+import { enableValidation, clearValidation } from './components/validate.js';
+import { apiConfig, getUserId, getCards, editProfileData } from './components/api';
 
 const profile = document.querySelector('.profile');
 const profileContainer = profile.querySelector('.profile__bio');
@@ -21,6 +20,22 @@ const formUserAddCard = document.querySelector('.popup__cardAdd'); // попап
 const titleInputCard = document.querySelector('.popup__input_data_title'); // строка ввода названия карточки
 const photoInputCard = document.querySelector('.popup__input_data_link'); // строка ввода ссылки
 
+const user = {
+  name: '',
+  about: '',
+  avatar: '',
+  owner: {
+    _id: `${apiConfig.userId}`
+  },
+  _id: '',
+};
+
+getUserId()
+  .then(userProfile => {
+    nameProfile.textContent = userProfile.name;
+    jobProfile.textContent = userProfile.about;
+  })
+
 // Открытие Popup окна - Profile:
 buttonAddInfo.addEventListener('click', () => {
   openPopup(profilePopup);
@@ -34,9 +49,17 @@ formUserAddInfo.addEventListener('submit', submitProfileForm);
 // Сохранение внесенной информации в Popup окне - Profile:
 function submitProfileForm(evt) {
   evt.preventDefault();
-  nameProfile.textContent = nameInput.value;
-  jobProfile.textContent = jobInput.value;
-  closePopup(profilePopup);
+  user.name = nameInput.value;
+  user.about = jobInput.value;
+  formUserAddInfo.textContent = 'Сохранение...';
+  editProfileData(user)
+    .then((user) => {
+      nameProfile.textContent = user.name;
+      jobProfile.textContent = user.about;
+      closePopup(profilePopup);
+    })
+    .catch(err => console.log(err))
+    .finally(() => formUserAddInfo.textContent = 'Сохранить')
 }
 
 // Открытие Popup окна - Element:
