@@ -3,6 +3,7 @@ import { createCard } from './components/card.js';
 import { openPopup, closePopup } from './components/modal.js';
 import { enableValidation, clearValidation } from './components/validate.js'
 import { initialCards } from './components/cards';
+import './components/api';
 
 const profile = document.querySelector('.profile');
 const profileContainer = profile.querySelector('.profile__bio');
