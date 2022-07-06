@@ -19,6 +19,7 @@ const cardBox = document.querySelector('.elements'); // коробка карт�
 const formUserAddCard = document.querySelector('.popup__cardAdd'); // попап форма редактировать карточку
 const titleInputCard = document.querySelector('.popup__input_data_title'); // строка ввода названия карточки
 const photoInputCard = document.querySelector('.popup__input_data_link'); // строка ввода ссылки
+const saveProfileButton = document.querySelector('.popup__saveProfile'); // кнопка сохранить введённые данные Юзера
 
 const user = {
   name: '',
@@ -54,15 +55,15 @@ function submitProfileForm(evt) {
   evt.preventDefault();
   user.name = nameInput.value;
   user.about = jobInput.value;
-  formUserAddInfo.textContent = 'Сохранение...';
-  closePopup(profilePopup);
+  saveProfileButton.textContent = 'Сохранение...';
   editProfileData(user)
     .then((user) => {
       nameProfile.textContent = user.name;
       jobProfile.textContent = user.about;
+      closePopup(profilePopup);
     })
     .catch(err => console.log(err))
-    .finally(() => formUserAddInfo.textContent = 'Сохранить')
+    .finally(() => saveProfileButton.textContent = 'Сохранить')
 }
 
 // Открытие Popup окна - Element:
