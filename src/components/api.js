@@ -47,4 +47,13 @@ const editProfileData = async (user) => {
     .then(res => checkConnect(res))
 }
 
-export { apiConfig, getUserId, getCards, editProfileData };
+const addNewCard = async (newCard) => {
+  return fetch(`${apiConfig.serverUrl}/cards`, {
+    method: 'POST',
+    headers: apiConfig.headers,
+    body: JSON.stringify(newCard),
+  })
+    .then(res => checkConnect(res))
+}
+
+export { apiConfig, getUserId, getCards, editProfileData, addNewCard };

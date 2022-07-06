@@ -2,7 +2,7 @@ import './pages/index.css';
 import { createCard } from './components/card.js';
 import { openPopup, closePopup } from './components/modal.js';
 import { enableValidation, clearValidation } from './components/validate.js';
-import { apiConfig, getUserId, getCards, editProfileData } from './components/api';
+import { apiConfig, getUserId, getCards, editProfileData, addNewCard } from './components/api';
 
 const profile = document.querySelector('.profile');
 const profileContainer = profile.querySelector('.profile__bio');
@@ -20,17 +20,22 @@ const formUserAddCard = document.querySelector('.popup__cardAdd'); // попап
 const titleInputCard = document.querySelector('.popup__input_data_title'); // строка ввода названия карточки
 const photoInputCard = document.querySelector('.popup__input_data_link'); // строка ввода ссылки
 const saveProfileButton = document.querySelector('.popup__saveProfile'); // кнопка сохранить введённые данные Юзера
+const saveCardButton = document.querySelector('.popup__saveCard'); // кнопка сохранить новую карточку
 
 const user = {
-  name: '',
   about: '',
   avatar: '',
-  owner: {
-    name: '',
-    about: '',
-    avatar: '',
-    _id: `${apiConfig.userId}`
-  },
+  cohort: '',
+  name: '',
+  _id: '',
+};
+
+const newCard = {
+  createdAt: '',
+  likes: [],
+  link: '',
+  name: '',
+  owner: { user },
   _id: '',
 };
 
@@ -79,10 +84,29 @@ getCards()
 // Сохранение внесенной информации в Popup окне - Element:
 function submitCardForm(evt) {
   evt.preventDefault();
+  newCard.name = titleInputCard.value;
+  newCard.link = photoInputCard.value;
+  saveCardButton.textContent = 'Добавление...';
+  addNewCard(newCard)
+    .then((newCard) => {
+      cardBox.prepend(createCard(newCard.name, newCard.link));
+      closePopup(cardPopup);
+    })
+    .catch(err => console.log(err))
+    .finally(() => {
+      saveCardButton.textContent = 'Добавить';
+      formUserAddCard.reset();
+    })
+}
+
+/*
+function submitCardForm(evt) {
+  evt.preventDefault();
   cardBox.prepend(createCard(titleInputCard.value, photoInputCard.value));
   closePopup(cardPopup);
   formUserAddCard.reset();
 }
+*/
 
 formUserAddCard.addEventListener('submit', submitCardForm);
 
