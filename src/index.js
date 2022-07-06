@@ -25,6 +25,9 @@ const user = {
   about: '',
   avatar: '',
   owner: {
+    name: '',
+    about: '',
+    avatar: '',
     _id: `${apiConfig.userId}`
   },
   _id: '',
@@ -52,11 +55,11 @@ function submitProfileForm(evt) {
   user.name = nameInput.value;
   user.about = jobInput.value;
   formUserAddInfo.textContent = 'Сохранение...';
+  closePopup(profilePopup);
   editProfileData(user)
     .then((user) => {
       nameProfile.textContent = user.name;
       jobProfile.textContent = user.about;
-      closePopup(profilePopup);
     })
     .catch(err => console.log(err))
     .finally(() => formUserAddInfo.textContent = 'Сохранить')
