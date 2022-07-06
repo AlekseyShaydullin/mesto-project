@@ -99,15 +99,6 @@ function submitCardForm(evt) {
     })
 }
 
-/*
-function submitCardForm(evt) {
-  evt.preventDefault();
-  cardBox.prepend(createCard(titleInputCard.value, photoInputCard.value));
-  closePopup(cardPopup);
-  formUserAddCard.reset();
-}
-*/
-
 formUserAddCard.addEventListener('submit', submitCardForm);
 
 enableValidation();

@@ -19,8 +19,10 @@
 @import url(../blocks/element/__foto/element__foto.css);
 @import url(../blocks/element/__caption/element__caption.css);
 @import url(../blocks/element/__caption-town/element__caption-town.css);
+@import url(../blocks/element/like-counter/element__like-counter.css);
 @import url(../blocks/element/__button-like/element__button-like.css);
 @import url(../blocks/element/__button-like/_active/element__button-like_active.css);
+@import url(../blocks/element/__button-like-count/element__button-like-count.css);
 @import url(../blocks/element/__button-trash/element__button-trash.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
