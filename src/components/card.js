@@ -6,7 +6,7 @@ const captionPopup = document.querySelector('.popup__caption-foto'); // подп
 const fotoPopup = document.querySelector('.popup__foto'); // фото попапа Image
 
 // Добавление новых карточек - Element:
-function createCard(titleInputCard, photoInputCard, apiConfig, newCard) {
+function createCard(titleInputCard, photoInputCard, apiConfig, card) {
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
   const img = cardElement.querySelector('.element__foto');
   const captionCard = cardElement.querySelector('.element__caption');
@@ -20,7 +20,9 @@ function createCard(titleInputCard, photoInputCard, apiConfig, newCard) {
   likeCard.addEventListener('click', getLike);
   // Реализация кнопки Trash:
 
-  if (apiConfig.userId !== newCard.owner._id) {
+  console.log(apiConfig.userId);
+  console.log(card.owner._id);
+  if (apiConfig.userId !== card.owner._id) {
     buttonTrashCard.classList.add('element__button-trash_disactiv');
   }
 
