@@ -22,6 +22,7 @@ const getCards = async () => {
     headers: apiConfig.headers,
   })
     .then(res => checkConnect(res))
+    .catch(err => console.log(err))
 }
 
 getCards()
@@ -32,6 +33,7 @@ const getUserId = async () => {
     headers: apiConfig.headers,
   })
     .then(res => checkConnect(res))
+    .catch(err => console.log(err))
 }
 
 getUserId()
@@ -45,6 +47,7 @@ const editProfileData = async (user) => {
     body: JSON.stringify(user),
   })
     .then(res => checkConnect(res))
+    .catch(err => console.log(err))
 }
 
 const addNewCard = async (newCard) => {
@@ -54,6 +57,25 @@ const addNewCard = async (newCard) => {
     body: JSON.stringify(newCard),
   })
     .then(res => checkConnect(res))
+    .catch(err => console.log(err))
 }
 
-export { apiConfig, getUserId, getCards, editProfileData, addNewCard };
+const addLikeCard = async (cardId) => {
+  return fetch(`${apiConfig.serverUrl}/cards/likes/${cardId}`, {
+    method: 'PUT',
+    headers: apiConfig.headers,
+  })
+    .then(res => checkConnect(res))
+    .catch(err => console.log(err))
+}
+
+const delLikeCard = async (cardId) => {
+  return fetch(`${apiConfig.serverUrl}/cards/likes/${cardId}`, {
+    method: 'DELETE',
+    headers: apiConfig.headers,
+  })
+    .then(res => checkConnect(res))
+    .catch(err => console.log(err))
+}
+
+export { apiConfig, getUserId, getCards, editProfileData, addNewCard, addLikeCard, delLikeCard };
