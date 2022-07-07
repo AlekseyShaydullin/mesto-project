@@ -5,8 +5,7 @@ const cardTemplate = document.querySelector('#card-template').content;
 const imagePopup = document.querySelector('.popup__image'); // попап Image
 const captionPopup = document.querySelector('.popup__caption-foto'); // подпись фотографии попапа Image
 const fotoPopup = document.querySelector('.popup__foto'); // фото попапа Image
-const ActiveLikeStatus = document.querySelector('.element__button-like_active'); //
-console.log(`${ActiveLikeStatus}`);
+
 // Добавление новых карточек - Element:
 function createCard(titleInputCard, photoInputCard, apiConfig, card) {
   const { name, link, likes, owner, _id } = card
@@ -20,16 +19,17 @@ function createCard(titleInputCard, photoInputCard, apiConfig, card) {
   img.src = photoInputCard;
   img.alt = titleInputCard;
   cardElement.querySelector('.element__caption-town').textContent = titleInputCard;
-  // Реализация конпки Like:
+  // Каунтер Like:
   counterLikes.textContent = likes.length;
-
+  // Реализация конпки Like:
   likeCard.addEventListener('click', () => {
     getLike(card, likeCard, counterLikes)
   });
-
-
-
-  // Реализация кнопки Trash:
+  // Фильтр активного лайка:
+  if (likes.find((card) => card._id === apiConfig.userId)) {
+    likeCard.classList.add('element__button-like_active');
+  }
+  // Фильтр кнопки Trash:
   if (apiConfig.userId !== card.owner._id) {
     buttonTrashCard.classList.add('element__button-trash_disactiv');
   }
@@ -47,16 +47,14 @@ function getLike(card, likeCard, counterLikes) {
     delLikeCard(card._id)
       .then(res => counterLikes.textContent = res.likes.length)
       .catch(err => console.log(err))
-    likeCard.classList.toggle('element__button-like_active');
+    likeCard.classList.remove('element__button-like_active');
   } else if (!likeCard.classList.contains('element__button-like_active')) {
     addLikeCard(card._id)
       .then(res => counterLikes.textContent = res.likes.length)
       .catch(err => console.log(err))
-    likeCard.classList.toggle('element__button-like_active');
+    likeCard.classList.add('element__button-like_active');
   }
 }
-
-//const getLike = evt => evt.target.classList.toggle('element__button-like_active');
 
 //Trash:
 const deleteCard = evt => evt.target.closest('.element').remove();
