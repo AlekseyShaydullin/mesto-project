@@ -79,7 +79,7 @@ cardButtonAdd.addEventListener('click', () => {
 
 // Добавляем карточки:
 getCards()
-  .then(data => data.forEach((card) => cardBox.prepend(createCard(card.name, card.link))));
+  .then(data => data.forEach((card) => cardBox.prepend(createCard(card.name, card.link, apiConfig, newCard))));
 
 // Сохранение внесенной информации в Popup окне - Element:
 function submitCardForm(evt) {

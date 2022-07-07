@@ -24,6 +24,7 @@
 @import url(../blocks/element/__button-like/_active/element__button-like_active.css);
 @import url(../blocks/element/__button-like-count/element__button-like-count.css);
 @import url(../blocks/element/__button-trash/element__button-trash.css);
+@import url(../blocks/element/__button-trash/_disactiv/element__button-trash_disactiv.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 @import url(../blocks/popup/popup.css);

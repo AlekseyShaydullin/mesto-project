@@ -6,7 +6,7 @@ const captionPopup = document.querySelector('.popup__caption-foto'); // подп
 const fotoPopup = document.querySelector('.popup__foto'); // фото попапа Image
 
 // Добавление новых карточек - Element:
-function createCard(titleInputCard, photoInputCard) {
+function createCard(titleInputCard, photoInputCard, apiConfig, newCard) {
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
   const img = cardElement.querySelector('.element__foto');
   const captionCard = cardElement.querySelector('.element__caption');
@@ -19,6 +19,11 @@ function createCard(titleInputCard, photoInputCard) {
   // Реализация конпки Like:
   likeCard.addEventListener('click', getLike);
   // Реализация кнопки Trash:
+
+  if (apiConfig.userId !== newCard.owner._id) {
+    buttonTrashCard.classList.add('element__button-trash_disactiv');
+  }
+
   buttonTrashCard.addEventListener('click', deleteCard);
   // Открытие Popup окна - Image:
   img.addEventListener('click', renderImage);
