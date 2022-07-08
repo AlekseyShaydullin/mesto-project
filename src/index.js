@@ -21,6 +21,8 @@ const titleInputCard = document.querySelector('.popup__input_data_title'); // с
 const photoInputCard = document.querySelector('.popup__input_data_link'); // строка ввода ссылки
 const saveProfileButton = document.querySelector('.popup__saveProfile'); // кнопка сохранить введённые данные Юзера
 const saveCardButton = document.querySelector('.popup__saveCard'); // кнопка сохранить новую карточку
+const deleteCardButtonList = document.querySelectorAll('.element__button-trash'); //кнопки удалить картинку
+const deleteCardPopup = document.querySelector('.popup__delite-card'); //попап подтверждения удаления картинки
 
 const user = {
   about: '',
@@ -79,7 +81,8 @@ cardButtonAdd.addEventListener('click', () => {
 
 // Добавляем карточки:
 getCards()
-  .then(data => data.forEach((card) => cardBox.prepend(createCard(card.name, card.link, apiConfig, card))));
+  .then(data => data.forEach((card) => cardBox.prepend(createCard(card.name, card.link, apiConfig, card))))
+  .catch(err => console.log(err))
 
 // Сохранение внесенной информации в Popup окне - Element:
 function submitCardForm(evt) {
@@ -100,5 +103,12 @@ function submitCardForm(evt) {
 }
 
 formUserAddCard.addEventListener('submit', submitCardForm);
+
+// Открываем Popup окно - Delite Card
+console.log(deleteCardButtonList);
+deleteCardButtonList.addEventListener('click', (evt) => {
+  openPopup(deleteCardPopup);
+  deleteCardPopup.dataset.id = newCard._id;
+})
 
 enableValidation();

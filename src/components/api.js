@@ -16,7 +16,6 @@ const checkConnect = res => {
   return res.json()
 }
 
-
 const getCards = async () => {
   return fetch(`${apiConfig.serverUrl}/cards`, {
     headers: apiConfig.headers,
@@ -39,7 +38,6 @@ const getUserId = async () => {
 getUserId()
   .then(id => console.log(id));
 
-
 const editProfileData = async (user) => {
   return fetch(`${apiConfig.serverUrl}/users/me`, {
     method: 'PATCH',
@@ -55,6 +53,15 @@ const addNewCard = async (newCard) => {
     method: 'POST',
     headers: apiConfig.headers,
     body: JSON.stringify(newCard),
+  })
+    .then(res => checkConnect(res))
+    .catch(err => console.log(err))
+}
+
+const delNewCard = async (cardId) => {
+  return fetch(`${apiConfig.serverUrl}/cards/${cardId}`, {
+    method: 'DELETE',
+    headers: apiConfig.headers,
   })
     .then(res => checkConnect(res))
     .catch(err => console.log(err))
@@ -78,4 +85,4 @@ const delLikeCard = async (cardId) => {
     .catch(err => console.log(err))
 }
 
-export { apiConfig, getUserId, getCards, editProfileData, addNewCard, addLikeCard, delLikeCard };
+export { apiConfig, getUserId, getCards, editProfileData, addNewCard, delNewCard, addLikeCard, delLikeCard };

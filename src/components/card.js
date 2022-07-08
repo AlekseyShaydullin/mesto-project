@@ -1,5 +1,5 @@
 import { openPopup } from './modal';
-import { addLikeCard, delLikeCard } from './api';
+import { addLikeCard, delLikeCard, delNewCard } from './api';
 
 const cardTemplate = document.querySelector('#card-template').content;
 const imagePopup = document.querySelector('.popup__image'); // попап Image
@@ -19,22 +19,28 @@ function createCard(titleInputCard, photoInputCard, apiConfig, card) {
   img.src = photoInputCard;
   img.alt = titleInputCard;
   cardElement.querySelector('.element__caption-town').textContent = titleInputCard;
+
   // Каунтер Like:
   counterLikes.textContent = likes.length;
+
   // Реализация конпки Like:
   likeCard.addEventListener('click', () => {
     getLike(card, likeCard, counterLikes)
   });
+
   // Фильтр активного лайка:
   if (likes.find((card) => card._id === apiConfig.userId)) {
     likeCard.classList.add('element__button-like_active');
   }
+
   // Фильтр кнопки Trash:
   if (apiConfig.userId !== card.owner._id) {
     buttonTrashCard.classList.add('element__button-trash_disactiv');
   }
 
+  // Удаление карточки
   buttonTrashCard.addEventListener('click', deleteCard);
+
   // Открытие Popup окна - Image:
   img.addEventListener('click', renderImage);
 
@@ -57,6 +63,8 @@ function getLike(card, likeCard, counterLikes) {
 }
 
 //Trash:
+delNewCard
+
 const deleteCard = evt => evt.target.closest('.element').remove();
 
 //Отрисовка модального окна Image:
