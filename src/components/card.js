@@ -1,14 +1,16 @@
-import { openPopup } from './modal';
+import { openPopup, closePopup } from './modal';
 import { addLikeCard, delLikeCard, delNewCard } from './api';
 
 const cardTemplate = document.querySelector('#card-template').content;
 const imagePopup = document.querySelector('.popup__image'); // попап Image
 const captionPopup = document.querySelector('.popup__caption-foto'); // подпись фотографии попапа Image
 const fotoPopup = document.querySelector('.popup__foto'); // фото попапа Image
+const deleteCardPopup = document.querySelector('.popup__delete-card'); //попап подтверждения удаления картинки
+const buttonApprove = document.querySelector('.popup__approve'); //кнопка согласия удаления какрточки
 
 // Добавление новых карточек - Element:
 function createCard(titleInputCard, photoInputCard, apiConfig, card) {
-  const { name, link, likes, owner, _id } = card
+  const { name, link, likes, owner, _id } = card;
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
   const img = cardElement.querySelector('.element__foto');
   const captionCard = cardElement.querySelector('.element__caption');
@@ -16,6 +18,7 @@ function createCard(titleInputCard, photoInputCard, apiConfig, card) {
   const buttonTrashCard = cardElement.querySelector('.element__button-trash'); // кнопка удалить
   const counterLikes = cardElement.querySelector('.element__button-like-count');
 
+  cardElement.id = card._id;
   img.src = photoInputCard;
   img.alt = titleInputCard;
   cardElement.querySelector('.element__caption-town').textContent = titleInputCard;
@@ -38,8 +41,14 @@ function createCard(titleInputCard, photoInputCard, apiConfig, card) {
     buttonTrashCard.classList.add('element__button-trash_disactiv');
   }
 
-  // Удаление карточки
-  buttonTrashCard.addEventListener('click', deleteCard);
+  // Открываем Popup окно - Delite Card
+  buttonTrashCard.addEventListener('click', (evt) => {
+    openPopup(deleteCardPopup);
+    deleteCardPopup.dataset.id = _id;
+  })
+
+  // Удаление карточки  
+  deleteCardPopup.addEventListener('submit', deleteCard);
 
   // Открытие Popup окна - Image:
   img.addEventListener('click', renderImage);
@@ -63,9 +72,16 @@ function getLike(card, likeCard, counterLikes) {
 }
 
 //Trash:
-delNewCard
-
-const deleteCard = evt => evt.target.closest('.element').remove();
+function deleteCard(evt) {
+  evt.preventDefault();
+  const deleteCardId = deleteCardPopup.dataset.id;
+  const deleteCard = document.querySelector(`.element[id="${deleteCardId}"]`)
+  delNewCard(deleteCardId)
+    .then(() => deleteCard.remove())
+    .catch(err => console.log(err))
+    .finally(() => deleteCardPopup.dataset.Id = "");
+  closePopup(deleteCardPopup);
+}
 
 //Отрисовка модального окна Image:
 const renderImage = (evt) => {

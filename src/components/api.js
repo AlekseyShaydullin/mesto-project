@@ -59,6 +59,7 @@ const addNewCard = async (newCard) => {
 }
 
 const delNewCard = async (cardId) => {
+  console.log(cardId);
   return fetch(`${apiConfig.serverUrl}/cards/${cardId}`, {
     method: 'DELETE',
     headers: apiConfig.headers,

@@ -78,10 +78,12 @@
     </div>
   </div>
   <!--Popup - Подтверждение удаление карточки-->
-  <div class="popup popup__delite-card">
-    <div class="popup__container-delite-card">
-      <h2 class="popup__title">Вы уверины?</h2>
-      <button class="popup__button popup__saveCard" type="submit">Да</button>
+  <div class="popup popup__delete-card">
+    <div class="popup__container">
+      <form class="popup__form" name="deleteCard" novalidate>
+        <h2 class="popup__title popup__title_delete-card">Вы уверины?</h2>
+        <button class="popup__button popup__button_delete-card popup__approve" type="submit">Да</button>
+      </form>
       <button class="popup__close-icon" type="button" aria-label="Закрыть окно редактирования профиля"></button>
     </div>
   </div>
