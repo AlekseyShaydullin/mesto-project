@@ -8,6 +8,18 @@ const apiConfig = {
   },
   userId: '3d1d3c501916deae49b17946'
 }
+
+// Шаблон обработчика запроса на сервер
+const requestConfig = async (url, method, data, headers = apiConfig.headers) => {
+  return fetch(`${apiConfig.serverUrl}${url}`, {
+    method: method,
+    headers: headers,
+    body: JSON.stringify(data)
+  })
+    .then(res => checkConnect(res))
+    .catch(err => console.log(err))
+}
+
 // Запрос на сервер:
 const checkConnect = res => {
   if (!res.ok) {
@@ -15,85 +27,45 @@ const checkConnect = res => {
   }
   return res.json()
 }
+
 // Получить карточки
-const getCards = async () => {
-  return fetch(`${apiConfig.serverUrl}/cards`, {
-    headers: apiConfig.headers,
-  })
-    .then(res => checkConnect(res))
-    .catch(err => console.log(err))
+const getCards = () => {
+  return requestConfig('/cards', 'GET')
 }
 
-getCards()
-  .then(data => console.log(data))
 // Получить данные пользователя
-const getUserId = async () => {
-  return fetch(`${apiConfig.serverUrl}/users/me`, {
-    headers: apiConfig.headers,
-  })
-    .then(res => checkConnect(res))
-    .catch(err => console.log(err))
+const getUserId = () => {
+  return requestConfig('/users/me', 'GET')
 }
 
-getUserId()
-  .then(id => console.log(id));
 // Отправить данные пользователя на сервер
-const editProfileData = async (user) => {
-  return fetch(`${apiConfig.serverUrl}/users/me`, {
-    method: 'PATCH',
-    headers: apiConfig.headers,
-    body: JSON.stringify(user),
-  })
-    .then(res => checkConnect(res))
-    .catch(err => console.log(err))
+const editProfileData = (user) => {
+  return requestConfig('/users/me', 'PATCH', user)
 }
+
 // Отправить данные новой карточки на сервер
-const addNewCard = async (newCard) => {
-  console.log(newCard);
-  return fetch(`${apiConfig.serverUrl}/cards`, {
-    method: 'POST',
-    headers: apiConfig.headers,
-    body: JSON.stringify(newCard),
-  })
-    .then(res => checkConnect(res))
-    .catch(err => console.log(err))
+const addNewCard = (newCard) => {
+  return requestConfig('/cards', 'POST', newCard)
 }
+
 // Удалить карточку добавленную пользователем
-const delNewCard = async (cardId) => {
-  return fetch(`${apiConfig.serverUrl}/cards/${cardId}`, {
-    method: 'DELETE',
-    headers: apiConfig.headers,
-  })
-    .then(res => checkConnect(res))
-    .catch(err => console.log(err))
+const delNewCard = (cardId) => {
+  return requestConfig(`/cards/${cardId}`, 'DELETE')
 }
+
 // Добавить лайк карточке
-const addLikeCard = async (cardId) => {
-  return fetch(`${apiConfig.serverUrl}/cards/likes/${cardId}`, {
-    method: 'PUT',
-    headers: apiConfig.headers,
-  })
-    .then(res => checkConnect(res))
-    .catch(err => console.log(err))
+const addLikeCard = (cardId) => {
+  return requestConfig(`/cards/likes/${cardId}`, 'PUT')
 }
+
 // Удалить лайк карточки
-const delLikeCard = async (cardId) => {
-  return fetch(`${apiConfig.serverUrl}/cards/likes/${cardId}`, {
-    method: 'DELETE',
-    headers: apiConfig.headers,
-  })
-    .then(res => checkConnect(res))
-    .catch(err => console.log(err))
+const delLikeCard = (cardId) => {
+  return requestConfig(`/cards/likes/${cardId}`, 'DELETE')
 }
+
 // Обновить аватар пользователя
-const refreshAvatar = async (imageUrl) => {
-  return fetch(`${apiConfig.serverUrl}/users/me/avatar`, {
-    method: 'PATCH',
-    headers: apiConfig.headers,
-    body: JSON.stringify({ avatar: imageUrl }),
-  })
-    .then(res => checkConnect(res))
-    .catch(err => console.log(err))
+const refreshAvatar = (imageUrl) => {
+  return requestConfig('/users/me/avatar', 'PATCH', { avatar: imageUrl })
 }
 
 export { apiConfig, getUserId, getCards, editProfileData, addNewCard, delNewCard, addLikeCard, delLikeCard, refreshAvatar };
