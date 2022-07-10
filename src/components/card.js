@@ -1,15 +1,14 @@
 import { openPopup, closePopup } from './modal';
-import { addLikeCard, delLikeCard, delNewCard } from './api';
+import { apiConfig, addLikeCard, delLikeCard, delNewCard } from './api';
 
 const cardTemplate = document.querySelector('#card-template').content;
 const imagePopup = document.querySelector('.popup__image'); // попап Image
 const captionPopup = document.querySelector('.popup__caption-foto'); // подпись фотографии попапа Image
 const fotoPopup = document.querySelector('.popup__foto'); // фото попапа Image
 const deleteCardPopup = document.querySelector('.popup__delete-card'); //попап подтверждения удаления картинки
-const buttonApprove = document.querySelector('.popup__approve'); //кнопка согласия удаления какрточки
 
 // Добавление новых карточек - Element:
-function createCard(titleInputCard, photoInputCard, apiConfig, card) {
+function createCard(card) {
   const { name, link, likes, owner, _id } = card;
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
   const img = cardElement.querySelector('.element__foto');
@@ -19,9 +18,9 @@ function createCard(titleInputCard, photoInputCard, apiConfig, card) {
   const counterLikes = cardElement.querySelector('.element__button-like-count');
 
   cardElement.id = card._id;
-  img.src = photoInputCard;
-  img.alt = titleInputCard;
-  cardElement.querySelector('.element__caption-town').textContent = titleInputCard;
+  img.src = card.link;
+  img.alt = card.name;
+  cardElement.querySelector('.element__caption-town').textContent = card.name;
 
   // Каунтер Like:
   counterLikes.textContent = likes.length;
@@ -79,7 +78,7 @@ function deleteCard(evt) {
   delNewCard(deleteCardId)
     .then(() => deleteCard.remove())
     .catch(err => console.log(err))
-    .finally(() => deleteCardPopup.dataset.Id = "");
+    .finally(() => deleteCardPopup.dataset.id = "");
   closePopup(deleteCardPopup);
 }
 

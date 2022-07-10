@@ -86,11 +86,11 @@ const delLikeCard = async (cardId) => {
     .catch(err => console.log(err))
 }
 // Обновить аватар пользователя
-const refreshAvatar = async (image) => {
+const refreshAvatar = async (imageUrl) => {
   return fetch(`${apiConfig.serverUrl}/users/me/avatar`, {
     method: 'PATCH',
     headers: apiConfig.headers,
-    body: JSON.stringify({ avatar: image }),
+    body: JSON.stringify({ avatar: imageUrl }),
   })
     .then(res => checkConnect(res))
     .catch(err => console.log(err))

@@ -2,7 +2,7 @@ import './pages/index.css';
 import { createCard } from './components/card.js';
 import { openPopup, closePopup } from './components/modal.js';
 import { enableValidation, clearValidation } from './components/validate.js';
-import { apiConfig, getUserId, getCards, editProfileData, addNewCard } from './components/api';
+import { apiConfig, getUserId, getCards, editProfileData, addNewCard, refreshAvatar } from './components/api';
 
 const profile = document.querySelector('.profile');
 const profileContainer = profile.querySelector('.profile__bio');
@@ -21,6 +21,11 @@ const titleInputCard = document.querySelector('.popup__input_data_title'); // с
 const photoInputCard = document.querySelector('.popup__input_data_link'); // строка ввода ссылки
 const saveProfileButton = document.querySelector('.popup__saveProfile'); // кнопка сохранить введённые данные Юзера
 const saveCardButton = document.querySelector('.popup__saveCard'); // кнопка сохранить новую карточку
+const refreshButtonAvatar = document.querySelector('.profile__btn-refresh-avatar'); // кнопка изменения аватара
+const refreshAvatarPopup = document.querySelector('.popup__refresh-avatar'); // попап редактирования аватара
+const inputAvatar = document.querySelector('.popup__input_data_link-avatar'); // строка ввода ссылки на аватар
+const saceAvatarButton = document.querySelector('.popup__saveAvatar'); // кнопка сохранить аватар
+const profileAvatar = document.querySelector('.profile__avatar'); // аватар профайла
 
 const user = {
   about: '',
@@ -35,15 +40,23 @@ const newCard = {
   likes: [],
   link: '',
   name: '',
-  owner: { user },
+  owner: {
+    name: "",
+    about: "",
+    avatar: "",
+    _id: "",
+  },
   _id: '',
 };
 
-getUserId()
-  .then(userProfile => {
-    nameProfile.textContent = userProfile.name;
-    jobProfile.textContent = userProfile.about;
+Promise.all([getUserId(), getCards()])
+  .then(([user, cards]) => {
+    nameProfile.textContent = user.name;
+    jobProfile.textContent = user.about;
+    profileAvatar.src = user.avatar;
+    cards.forEach(card => cardBox.prepend(createCard(card)))
   })
+  .catch(err => { console.log(err) })
 
 // Открытие Popup окна - Profile:
 buttonAddInfo.addEventListener('click', () => {
@@ -77,11 +90,6 @@ cardButtonAdd.addEventListener('click', () => {
   clearValidation(cardPopup);
 });
 
-// Добавляем карточки:
-getCards()
-  .then(data => data.forEach((card) => cardBox.prepend(createCard(card.name, card.link, apiConfig, card))))
-  .catch(err => console.log(err))
-
 // Сохранение внесенной информации в Popup окне - Element:
 function submitCardForm(evt) {
   evt.preventDefault();
@@ -89,8 +97,8 @@ function submitCardForm(evt) {
   newCard.link = photoInputCard.value;
   saveCardButton.textContent = 'Добавление...';
   addNewCard(newCard)
-    .then((newCard) => {
-      cardBox.prepend(createCard(newCard.name, newCard.link, apiConfig, newCard));
+    .then((card) => {
+      cardBox.prepend(createCard(card));
       closePopup(cardPopup);
     })
     .catch(err => console.log(err))
@@ -101,5 +109,28 @@ function submitCardForm(evt) {
 }
 
 formUserAddCard.addEventListener('submit', submitCardForm);
+
+// Открытие Popup окна - Refresh Avatar:
+refreshButtonAvatar.addEventListener('click', () => {
+  openPopup(refreshAvatarPopup);
+  clearValidation(refreshAvatarPopup);
+})
+
+// Сохранение внесенной информации в Popup окне - Refresh Avatar:
+function submitrefreshAvatar(evt) {
+  evt.preventDefault();
+  saceAvatarButton.textContent = 'Сохранение...';
+  refreshAvatar(inputAvatar.value)
+    .then((data) => {
+      console.log(data)
+      console.log(data.avatar)
+      profileAvatar.src = data.avatar;
+      closePopup(refreshAvatarPopup);
+    })
+    .catch(err => console.log(err))
+    .finally(() => saveProfileButton.textContent = 'Сохранить')
+}
+
+refreshAvatarPopup.addEventListener('submit', submitrefreshAvatar)
 
 enableValidation();

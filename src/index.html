@@ -19,14 +19,14 @@
       <section class="profile">
         <div class="profile__bio">
           <button class="profile__btn-refresh-avatar">
-            <img class="profile__avatar" src="<%=require('./images/photo-profile.jpg')%>" alt="Аватар профайла" />
+            <img class="profile__avatar" src="https://99px.ru/sstorage/86/2017/01/image_861701171351153465139.gif" alt="Аватар профайла" />
           </button>
           <div class="profile__info">
             <div class="profile__container">
-              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <h1 class="profile__name">Загружаю...</h1>
               <button class="profile__edit-button" type="button" aria-label="Редактировать профиль"></button>
             </div>
-            <p class="profile__about">Исследователь океана</p>
+            <p class="profile__about">Подождите</p>
           </div>
         </div>
         <button class="profile__add-button" type="button" aria-label="Добавьте элемент в галерею"></button>
@@ -93,8 +93,8 @@
   <div class="popup popup__refresh-avatar">
     <div class="popup__container">
       <form class="popup__form" name="refreshAvatar" novalidate>
-        <h2 class="popup__title popup__title_delete-card">Обновить аватар</h2>
-        <input class="popup__input popup__input_data_link" id="аvatar-input" type="url" name="linkAvatar" placeholder="Ссылка на аватар" required>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <input class="popup__input popup__input_data_link-avatar" id="аvatar-input" type="url" name="linkAvatar" placeholder="Ссылка на аватар" required>
         <span class="popup__input-error аvatar-input-error"></span>
         <button class="popup__button popup__saveAvatar" type="submit">Сохранить</button>
       </form>
