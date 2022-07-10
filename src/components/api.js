@@ -8,14 +8,14 @@ const apiConfig = {
   },
   userId: '3d1d3c501916deae49b17946'
 }
-
+// Запрос на сервер:
 const checkConnect = res => {
   if (!res.ok) {
     return Promise.reject(`Ошибка ${res.status}`)
   }
   return res.json()
 }
-
+// Получить карточки
 const getCards = async () => {
   return fetch(`${apiConfig.serverUrl}/cards`, {
     headers: apiConfig.headers,
@@ -26,7 +26,7 @@ const getCards = async () => {
 
 getCards()
   .then(data => console.log(data))
-
+// Получить данные пользователя
 const getUserId = async () => {
   return fetch(`${apiConfig.serverUrl}/users/me`, {
     headers: apiConfig.headers,
@@ -37,7 +37,7 @@ const getUserId = async () => {
 
 getUserId()
   .then(id => console.log(id));
-
+// Отправить данные пользователя на сервер
 const editProfileData = async (user) => {
   return fetch(`${apiConfig.serverUrl}/users/me`, {
     method: 'PATCH',
@@ -47,8 +47,9 @@ const editProfileData = async (user) => {
     .then(res => checkConnect(res))
     .catch(err => console.log(err))
 }
-
+// Отправить данные новой карточки на сервер
 const addNewCard = async (newCard) => {
+  console.log(newCard);
   return fetch(`${apiConfig.serverUrl}/cards`, {
     method: 'POST',
     headers: apiConfig.headers,
@@ -57,9 +58,8 @@ const addNewCard = async (newCard) => {
     .then(res => checkConnect(res))
     .catch(err => console.log(err))
 }
-
+// Удалить карточку добавленную пользователем
 const delNewCard = async (cardId) => {
-  console.log(cardId);
   return fetch(`${apiConfig.serverUrl}/cards/${cardId}`, {
     method: 'DELETE',
     headers: apiConfig.headers,
@@ -67,7 +67,7 @@ const delNewCard = async (cardId) => {
     .then(res => checkConnect(res))
     .catch(err => console.log(err))
 }
-
+// Добавить лайк карточке
 const addLikeCard = async (cardId) => {
   return fetch(`${apiConfig.serverUrl}/cards/likes/${cardId}`, {
     method: 'PUT',
@@ -76,7 +76,7 @@ const addLikeCard = async (cardId) => {
     .then(res => checkConnect(res))
     .catch(err => console.log(err))
 }
-
+// Удалить лайк карточки
 const delLikeCard = async (cardId) => {
   return fetch(`${apiConfig.serverUrl}/cards/likes/${cardId}`, {
     method: 'DELETE',
@@ -85,5 +85,15 @@ const delLikeCard = async (cardId) => {
     .then(res => checkConnect(res))
     .catch(err => console.log(err))
 }
+// Обновить аватар пользователя
+const refreshAvatar = async (image) => {
+  return fetch(`${apiConfig.serverUrl}/users/me/avatar`, {
+    method: 'PATCH',
+    headers: apiConfig.headers,
+    body: JSON.stringify({ avatar: image }),
+  })
+    .then(res => checkConnect(res))
+    .catch(err => console.log(err))
+}
 
-export { apiConfig, getUserId, getCards, editProfileData, addNewCard, delNewCard, addLikeCard, delLikeCard };
+export { apiConfig, getUserId, getCards, editProfileData, addNewCard, delNewCard, addLikeCard, delLikeCard, refreshAvatar };

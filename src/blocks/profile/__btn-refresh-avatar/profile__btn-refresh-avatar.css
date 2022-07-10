@@ -1,0 +1,25 @@
+.profile__btn-refresh-avatar {
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+}
+
+.profile__btn-refresh-avatar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: url('../../../images/btn-pen.svg') no-repeat center rgba(0, 0, 0, 0.8);
+  background-size: 26px 26px;
+  opacity: 0;
+  transition: opacity .3s ease
+}
+
+.profile__btn-refresh-avatar:hover::after {
+  opacity: 1;
+}

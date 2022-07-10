@@ -18,7 +18,9 @@
       <!--Блок Profile-->
       <section class="profile">
         <div class="profile__bio">
-          <img class="profile__avatar" src="<%=require('./images/photo-profile.jpg')%>" alt="Аватар профайла" />
+          <button class="profile__btn-refresh-avatar">
+            <img class="profile__avatar" src="<%=require('./images/photo-profile.jpg')%>" alt="Аватар профайла" />
+          </button>
           <div class="profile__info">
             <div class="profile__container">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -59,8 +61,8 @@
           <h2 class="popup__title">Новое место</h2>
           <input class="popup__input popup__input_data_title" id="title-input" type="text" name="titleCard" placeholder="Название" minlength="2" maxlength="30" required>
           <span class="popup__input-error title-input-error"></span>
-          <input class="popup__input popup__input_data_link" id="email-input" type="url" name="linkCard"placeholder="Ссылка на картинку" required>
-          <span class="popup__input-error email-input-error"></span>
+          <input class="popup__input popup__input_data_link" id="url-input" type="url" name="linkCard" placeholder="Ссылка на картинку" required>
+          <span class="popup__input-error url-input-error"></span>
           <button class="popup__button popup__saveCard" type="submit">Добавить</button>
         </form>
         <button class="popup__close-icon" type="button" aria-label="Закрыть окно редактирования профиля"></button>
@@ -83,6 +85,18 @@
       <form class="popup__form" name="deleteCard" novalidate>
         <h2 class="popup__title popup__title_delete-card">Вы уверины?</h2>
         <button class="popup__button popup__button_delete-card popup__approve" type="submit">Да</button>
+      </form>
+      <button class="popup__close-icon" type="button" aria-label="Закрыть окно редактирования профиля"></button>
+    </div>
+  </div>
+  <!--Popup - Смена аватара профиля-->
+  <div class="popup popup__refresh-avatar">
+    <div class="popup__container">
+      <form class="popup__form" name="refreshAvatar" novalidate>
+        <h2 class="popup__title popup__title_delete-card">Обновить аватар</h2>
+        <input class="popup__input popup__input_data_link" id="аvatar-input" type="url" name="linkAvatar" placeholder="Ссылка на аватар" required>
+        <span class="popup__input-error аvatar-input-error"></span>
+        <button class="popup__button popup__saveAvatar" type="submit">Сохранить</button>
       </form>
       <button class="popup__close-icon" type="button" aria-label="Закрыть окно редактирования профиля"></button>
     </div>
