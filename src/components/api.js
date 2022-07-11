@@ -5,8 +5,7 @@ const apiConfig = {
   headers: {
     authorization: '2c978f21-f56a-4fa6-b5d5-e5052862cd58',
     'Content-Type': 'application/json'
-  },
-  userId: '3d1d3c501916deae49b17946'
+  }
 }
 
 // Шаблон обработчика запроса на сервер
@@ -17,7 +16,6 @@ const requestConfig = async (url, method, data, headers = apiConfig.headers) => 
     body: JSON.stringify(data)
   })
     .then(res => checkConnect(res))
-    .catch(err => console.log(err))
 }
 
 // Запрос на сервер:
@@ -68,4 +66,4 @@ const refreshAvatar = (imageUrl) => {
   return requestConfig('/users/me/avatar', 'PATCH', { avatar: imageUrl })
 }
 
-export { apiConfig, getUserId, getCards, editProfileData, addNewCard, delNewCard, addLikeCard, delLikeCard, refreshAvatar };
+export { getUserId, getCards, editProfileData, addNewCard, delNewCard, addLikeCard, delLikeCard, refreshAvatar };

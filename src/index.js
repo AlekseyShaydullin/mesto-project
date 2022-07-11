@@ -2,7 +2,7 @@ import './pages/index.css';
 import { createCard } from './components/card.js';
 import { openPopup, closePopup } from './components/modal.js';
 import { enableValidation, clearValidation } from './components/validate.js';
-import { apiConfig, getUserId, getCards, editProfileData, addNewCard, refreshAvatar } from './components/api';
+import { getUserId, getCards, editProfileData, addNewCard, refreshAvatar } from './components/api';
 
 const profile = document.querySelector('.profile');
 const profileContainer = profile.querySelector('.profile__bio');
@@ -26,6 +26,10 @@ const refreshAvatarPopup = document.querySelector('.popup__refresh-avatar'); // 
 const inputAvatar = document.querySelector('.popup__input_data_link-avatar'); // строка ввода ссылки на аватар
 const saceAvatarButton = document.querySelector('.popup__saveAvatar'); // кнопка сохранить аватар
 const profileAvatar = document.querySelector('.profile__avatar'); // аватар профайла
+
+export const userId = {
+  _id: '',
+}
 
 const user = {
   about: '',
@@ -54,7 +58,8 @@ Promise.all([getUserId(), getCards()])
     nameProfile.textContent = user.name;
     jobProfile.textContent = user.about;
     profileAvatar.src = user.avatar;
-    cards.forEach(card => cardBox.prepend(createCard(card)))
+    userId._id = user._id;
+    cards.reverse().forEach(card => cardBox.prepend(createCard(card)))
   })
   .catch(err => { console.log(err) })
 
@@ -122,8 +127,6 @@ function submitrefreshAvatar(evt) {
   saceAvatarButton.textContent = 'Сохранение...';
   refreshAvatar(inputAvatar.value)
     .then((data) => {
-      console.log(data)
-      console.log(data.avatar)
       profileAvatar.src = data.avatar;
       closePopup(refreshAvatarPopup);
     })

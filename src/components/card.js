@@ -1,5 +1,6 @@
 import { openPopup, closePopup } from './modal';
-import { apiConfig, addLikeCard, delLikeCard, delNewCard } from './api';
+import { addLikeCard, delLikeCard, delNewCard } from './api';
+import { userId } from '../index';
 
 const cardTemplate = document.querySelector('#card-template').content;
 const imagePopup = document.querySelector('.popup__image'); // попап Image
@@ -31,12 +32,12 @@ function createCard(card) {
   });
 
   // Фильтр активного лайка:
-  if (likes.find((card) => card._id === apiConfig.userId)) {
+  if (likes.find((card) => card._id === userId._id)) {
     likeCard.classList.add('element__button-like_active');
   }
 
   // Фильтр кнопки Trash:
-  if (apiConfig.userId !== card.owner._id) {
+  if (userId._id !== card.owner._id) {
     buttonTrashCard.classList.add('element__button-trash_disactiv');
   }
 
@@ -59,14 +60,18 @@ function createCard(card) {
 function getLike(card, likeCard, counterLikes) {
   if (likeCard.classList.contains('element__button-like_active')) {
     delLikeCard(card._id)
-      .then(res => counterLikes.textContent = res.likes.length)
+      .then(res => {
+        counterLikes.textContent = res.likes.length;
+        likeCard.classList.remove('element__button-like_active');
+      })
       .catch(err => console.log(err))
-    likeCard.classList.remove('element__button-like_active');
   } else if (!likeCard.classList.contains('element__button-like_active')) {
     addLikeCard(card._id)
-      .then(res => counterLikes.textContent = res.likes.length)
+      .then(res => {
+        counterLikes.textContent = res.likes.length;
+        likeCard.classList.add('element__button-like_active');
+      })
       .catch(err => console.log(err))
-    likeCard.classList.add('element__button-like_active');
   }
 }
 
@@ -76,10 +81,12 @@ function deleteCard(evt) {
   const deleteCardId = deleteCardPopup.dataset.id;
   const deleteCard = document.querySelector(`.element[id="${deleteCardId}"]`)
   delNewCard(deleteCardId)
-    .then(() => deleteCard.remove())
+    .then(() => {
+      deleteCard.remove();
+      closePopup(deleteCardPopup);
+    })
     .catch(err => console.log(err))
     .finally(() => deleteCardPopup.dataset.id = "");
-  closePopup(deleteCardPopup);
 }
 
 //Отрисовка модального окна Image:

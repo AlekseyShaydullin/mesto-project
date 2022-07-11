@@ -6,7 +6,7 @@ const validationConfig = {
   inactiveButtonClass: 'popup__button_inactive',
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__input-error_active'
-};
+}
 
 const showInputError = (formElement, inputElement, validationConfig) => {
   const { inputErrorClass, errorClass } = validationConfig;
@@ -30,7 +30,7 @@ const checkInputValidity = (formElement, inputElement, validationConfig) => {
   } else {
     hideInputError(formElement, inputElement, validationConfig);
   }
-};
+}
 
 const toggleButtonState = (inputList, buttonElement, validationConfig) => {
   const { inactiveButtonClass, ...anyConfig } = validationConfig;
@@ -51,7 +51,7 @@ const enableValidation = () => {
   const { formSelector } = validationConfig;
   const formList = Array.from(document.querySelectorAll(formSelector));
   formList.forEach(formElement => setEventListeners(formElement, validationConfig));
-};
+}
 
 const setEventListeners = (formElement, validationConfig) => {
   const { inputSelector, submitButtonSelector, ...anyConfig } = validationConfig;
@@ -67,7 +67,7 @@ const setEventListeners = (formElement, validationConfig) => {
     });
   });
   toggleButtonState(inputList, buttonElement, anyConfig);
-};
+}
 
 const resetValidation = (formElement, validationConfig) => {
   const { errorClass, inputErrorClass, inactiveButtonClass, submitButtonSelector, ...anyConfig } = validationConfig;
@@ -84,7 +84,7 @@ const resetValidation = (formElement, validationConfig) => {
   buttonElement.classList.add(inactiveButtonClass);
 }
 
-const clearValidation = (formItem) => {
+const clearValidation = (formItem, validationConfig) => {
   const { formSelector, ...anyConfig } = validationConfig;
   const formList = Array.from(formItem.querySelectorAll(formSelector));
   formList.forEach(formElement => {
