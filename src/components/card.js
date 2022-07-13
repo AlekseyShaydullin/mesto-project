@@ -1,6 +1,6 @@
 import { openPopup, closePopup } from './modal';
-import { addLikeCard, delLikeCard, delNewCard } from './api';
-import { userId } from '../index';
+import { addLikeCard, delLikeCard, delNewCard, getCards } from './api';
+import { userId, fillCards } from '../index';
 
 const cardTemplate = document.querySelector('#card-template').content;
 const imagePopup = document.querySelector('.popup__image'); // попап Image
@@ -47,7 +47,7 @@ function createCard(card) {
     deleteCardPopup.dataset.id = _id;
   })
 
-  // Удаление карточки  
+  // Удаление карточки
   deleteCardPopup.addEventListener('submit', deleteCard);
 
   // Открытие Popup окна - Image:
@@ -82,8 +82,10 @@ function deleteCard(evt) {
   const deleteCard = document.querySelector(`.element[id="${deleteCardId}"]`)
   delNewCard(deleteCardId)
     .then(() => {
-      deleteCard.remove();
-      closePopup(deleteCardPopup);
+      getCards().then((cards) => {
+        fillCards(cards)
+        closePopup(deleteCardPopup);
+      })
     })
     .catch(err => console.log(err))
     .finally(() => deleteCardPopup.dataset.id = "");
