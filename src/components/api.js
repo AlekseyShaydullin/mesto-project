@@ -9,7 +9,7 @@ const apiConfig = {
 }
 
 // Шаблон обработчика запроса на сервер
-const requestConfig = async (url, method, data, headers = apiConfig.headers) => {
+const requestConfig = (url, method, data, headers = apiConfig.headers) => {
   return fetch(`${apiConfig.serverUrl}${url}`, {
     method: method,
     headers: headers,
@@ -28,12 +28,12 @@ const checkConnect = res => {
 
 // Получить карточки
 const getCards = () => {
-  return requestConfig('/cards', 'GET')
+  return requestConfig('/cards')
 }
 
 // Получить данные пользователя
 const getUserId = () => {
-  return requestConfig('/users/me', 'GET')
+  return requestConfig('/users/me')
 }
 
 // Отправить данные пользователя на сервер
