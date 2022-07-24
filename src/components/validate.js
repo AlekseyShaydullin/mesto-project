@@ -33,7 +33,7 @@ const checkInputValidity = (formElement, inputElement, validationConfig) => {
 }
 
 const toggleButtonState = (inputList, buttonElement, validationConfig) => {
-  const { inactiveButtonClass, ...anyConfig } = validationConfig;
+  const { inactiveButtonClass } = validationConfig;
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(inactiveButtonClass);
     buttonElement.disabled = true;
@@ -70,7 +70,7 @@ const setEventListeners = (formElement, validationConfig) => {
 }
 
 const resetValidation = (formElement, validationConfig) => {
-  const { errorClass, inputErrorClass, inactiveButtonClass, submitButtonSelector, ...anyConfig } = validationConfig;
+  const { errorClass, inputErrorClass, inactiveButtonClass, submitButtonSelector } = validationConfig;
   const errorItems = [...formElement.querySelectorAll(`.${errorClass}`)];
   const inputList = [...formElement.querySelectorAll(`.${inputErrorClass}`)];
   const buttonElement = formElement.querySelector(submitButtonSelector);

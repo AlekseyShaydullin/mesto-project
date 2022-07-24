@@ -16,8 +16,6 @@ function closePopup(popup) {
   popup.removeEventListener('mousedown', overlayClose);
 }
 
-buttonCloseList.forEach(button => button.addEventListener('click', evt => closePopup(evt.target.closest('.popup'))));
-
 // Закрытие модалок Оверлей и Esc
 
 function escClose(evt) {
@@ -32,5 +30,7 @@ function overlayClose(evt) {
     closePopup(popupOverlay);
   }
 }
+
+buttonCloseList.forEach(button => button.addEventListener('click', evt => closePopup(evt.target.closest('.popup'))));
 
 export { openPopup, closePopup };

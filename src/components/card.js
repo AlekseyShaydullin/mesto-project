@@ -18,10 +18,10 @@ function createCard(card) {
   const buttonTrashCard = cardElement.querySelector('.element__button-trash'); // кнопка удалить
   const counterLikes = cardElement.querySelector('.element__button-like-count');
 
-  cardElement.id = card._id;
-  img.src = card.link;
-  img.alt = card.name;
-  cardElement.querySelector('.element__caption-town').textContent = card.name;
+  cardElement.id = _id;
+  img.src = link;
+  img.alt = name;
+  cardElement.querySelector('.element__caption-town').textContent = name;
 
   // Каунтер Like:
   counterLikes.textContent = likes.length;
@@ -32,17 +32,17 @@ function createCard(card) {
   });
 
   // Фильтр активного лайка:
-  if (likes.find((card) => card._id === userId._id)) {
+  if (likes.find((_id) => _id === userId._id)) {
     likeCard.classList.add('element__button-like_active');
   }
 
   // Фильтр кнопки Trash:
-  if (userId._id !== card.owner._id) {
+  if (userId._id !== owner._id) {
     buttonTrashCard.classList.add('element__button-trash_disactiv');
   }
 
   // Открываем Popup окно - Delite Card
-  buttonTrashCard.addEventListener('click', (evt) => {
+  buttonTrashCard.addEventListener('click', () => {
     openPopup(deleteCardPopup);
     deleteCardPopup.dataset.id = _id;
   })
