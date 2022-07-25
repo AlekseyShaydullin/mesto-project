@@ -8,7 +8,7 @@ const profile = document.querySelector('.profile');
 const profileContainer = profile.querySelector('.profile__bio');
 const nameProfile = profileContainer.querySelector('.profile__name'); // имя владельца профайла
 const jobProfile = profileContainer.querySelector('.profile__about'); // профессия владельца профайла
-const buttonAddInfo = document.querySelector('.profile__edit-button'); // кнопка вызывающая окно редактирование профиля 
+const buttonAddInfo = document.querySelector('.profile__edit-button'); // кнопка вызывающая окно редактирование профиля
 const profilePopup = document.querySelector('.popup_profile-edit'); // попап редактировать профиль
 const cardPopup = document.querySelector('.popup_element-edit'); // попап добавление карточек
 const cardButtonAdd = document.querySelector('.profile__add-button'); // кнопка вызывающая окно редактирование карточек
@@ -24,42 +24,22 @@ const saveCardButton = document.querySelector('.popup__saveCard'); // кнопк
 const refreshButtonAvatar = document.querySelector('.profile__btn-refresh-avatar'); // кнопка изменения аватара
 const refreshAvatarPopup = document.querySelector('.popup__refresh-avatar'); // попап редактирования аватара
 const inputAvatar = document.querySelector('.popup__input_data_link-avatar'); // строка ввода ссылки на аватар
-const saceAvatarButton = document.querySelector('.popup__saveAvatar'); // кнопка сохранить аватар
+const saveAvatarButton = document.querySelector('.popup__saveAvatar'); // кнопка сохранить аватар
 const profileAvatar = document.querySelector('.profile__avatar'); // аватар профайла
 
-export const userId = {
-  _id: '',
-}
+export const userId = {}
 
-const user = {
-  about: '',
-  avatar: '',
-  cohort: '',
-  name: '',
-  _id: '',
-};
+const user = {}
 
-const newCard = {
-  createdAt: '',
-  likes: [],
-  link: '',
-  name: '',
-  owner: {
-    name: "",
-    about: "",
-    avatar: "",
-    _id: "",
-  },
-  _id: '',
-};
+const newCard = { owner: {} };
 
-Promise.all([getUserId(), getCards()])
-  .then(([user, cards]) => {
-    nameProfile.textContent = user.name;
-    jobProfile.textContent = user.about;
-    profileAvatar.src = user.avatar;
-    userId._id = user._id;
-    cards.reverse().forEach(card => cardBox.prepend(createCard(card)))
+Promise.allSettled([getUserId(), getCards()])
+  .then(([{ value: user }, { value: cards }]) => {
+    nameProfile.textContent = user?.name;
+    jobProfile.textContent = user?.about;
+    profileAvatar.src = user?.avatar;
+    userId._id = user?._id;
+    fillCards(cards)
   })
   .catch(err => { console.log(err) })
 
@@ -103,7 +83,9 @@ function submitCardForm(evt) {
   saveCardButton.textContent = 'Добавление...';
   addNewCard(newCard)
     .then((card) => {
-      cardBox.prepend(createCard(card));
+      const cardBoxChild = cardBox.querySelector('.elements__wrapper');
+      cardBoxChild.prepend(createCard(card));
+      removeLastElement();
       closePopup(cardPopup);
     })
     .catch(err => console.log(err))
@@ -124,7 +106,7 @@ refreshButtonAvatar.addEventListener('click', () => {
 // Сохранение внесенной информации в Popup окне - Refresh Avatar:
 function submitrefreshAvatar(evt) {
   evt.preventDefault();
-  saceAvatarButton.textContent = 'Сохранение...';
+  saveAvatarButton.textContent = 'Сохранение...';
   refreshAvatar(inputAvatar.value)
     .then((data) => {
       profileAvatar.src = data.avatar;
@@ -135,5 +117,18 @@ function submitrefreshAvatar(evt) {
 }
 
 refreshAvatarPopup.addEventListener('submit', submitrefreshAvatar)
+
+function removeLastElement() {
+  const cards = cardBox.querySelectorAll('.element');
+  cards[cards.length - 1].remove();
+}
+
+export function fillCards(cards) {
+  const cardsHtml = document.createElement('div')
+  cardsHtml.classList.add('elements__wrapper');
+  cards.forEach(card => cardsHtml.append(createCard(card)))
+  const cardBoxChild = cardBox.querySelector('.elements__wrapper');
+  cardBox.replaceChild(cardsHtml, cardBoxChild);
+}
 
 enableValidation();

@@ -1,4 +1,4 @@
-/*.elements__wrapper {
+.elements__wrapper {
   padding-top: 50px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -23,4 +23,4 @@
     grid-template-rows: repeat(6, 1fr);
     gap: 20px;
   }
-}*/
+}
