@@ -79,7 +79,6 @@ function getLike(card, likeCard, counterLikes) {
 function deleteCard(evt) {
   evt.preventDefault();
   const deleteCardId = deleteCardPopup.dataset.id;
-  const deleteCard = document.querySelector(`.element[id="${deleteCardId}"]`)
   delNewCard(deleteCardId)
     .then(() => {
       getCards().then((cards) => {
