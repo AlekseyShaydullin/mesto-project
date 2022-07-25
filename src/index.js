@@ -2,7 +2,7 @@ import './pages/index.css';
 import { createCard } from './components/card.js';
 import { openPopup, closePopup } from './components/modal.js';
 import { enableValidation, clearValidation } from './components/validate.js';
-import { getUserId, getCards, editProfileData, addNewCard, refreshAvatar } from './components/api';
+import { getUserId, getCards, editProfileData, addNewCard, refreshAvatar, Api, apiConfig } from './components/api';
 
 const profile = document.querySelector('.profile');
 const profileContainer = profile.querySelector('.profile__bio');
@@ -33,7 +33,16 @@ const user = {}
 
 const newCard = { owner: {} };
 
-Promise.allSettled([getUserId(), getCards()])
+const links = {
+  card: '/cards',
+  user: '/users/me'
+}
+
+const api = new Api({ apiConfig, url: links.card });
+const user1 = new Api({ apiConfig, url: links.user })
+console.log(api.getData('GET'));
+
+Promise.allSettled([user1.getData(), api.getData()])
   .then(([{ value: user }, { value: cards }]) => {
     nameProfile.textContent = user?.name;
     jobProfile.textContent = user?.about;
