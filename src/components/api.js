@@ -9,8 +9,8 @@ export const apiConfig = {
 
 export class Api {
   constructor(data) {
-    this._apiConfig = data.apiConfig;
-    this._url = data.url;
+    this._serverUrl = data.serverUrl;
+    this._headers = data.headers;
   }
 
   _checkConnect(res) {
@@ -20,62 +20,61 @@ export class Api {
     return res.json()
   }
 
-  _requestConfig(url, method, data, headers = this._apiConfig.headers) {
-    return fetch(`${this._apiConfig.serverUrl}${url}`, {
+  _setRequest(url, method, data) {
+    return fetch(`${this._serverUrl}${url}`, {
       method: method,
-      headers: headers,
+      headers: this._headers,
       body: JSON.stringify(data)
     })
       .then(this._checkConnect)
   }
 
-  getData(method) {
-    return this._requestConfig(this._url, method)
+  _getRequest(url, method) {
+    return fetch(`${this._serverUrl}${url}`, {
+      method: method,
+      headers: this._headers
+    })
+      .then(this._checkConnect)
   }
 
-  setData(method, data) {
-    return this._requestConfig(this._url, method, data)
-  }
-
-
-  /*getCards = () => {
-    return this._requestConfig('/cards')
+  getCards = () => {
+    return this._getRequest('/cards')
   }
   
   // Получить данные пользователя
   getUserId = () => {
-    return this._requestConfig('/users/me')
+    return this._getRequest('/users/me')
   }
   
   // Отправить данные пользователя на сервер
   editProfileData = (user) => {
-    return this._requestConfig('/users/me', 'PATCH', user)
+    return this._setRequest('/users/me', 'PATCH', user)
   }
   
   // Отправить данные новой карточки на сервер
   addNewCard = (newCard) => {
-    return this._requestConfig('/cards', 'POST', newCard)
+    return this._setRequest('/cards', 'POST', newCard)
   }
   
   // Удалить карточку добавленную пользователем
   delNewCard = (cardId) => {
-    return this._requestConfig(`/cards/${cardId}`, 'DELETE')
+    return this._getRequest(`/cards/${cardId}`, 'DELETE')
   }
   
   // Добавить лайк карточке
   addLikeCard = (cardId) => {
-    return this._requestConfig(`/cards/likes/${cardId}`, 'PUT')
+    return this._getRequest(`/cards/likes/${cardId}`, 'PUT')
   }
   
   // Удалить лайк карточки
   delLikeCard = (cardId) => {
-    return this._requestConfig(`/cards/likes/${cardId}`, 'DELETE')
+    return this._getRequest(`/cards/likes/${cardId}`, 'DELETE')
   }
   
   // Обновить аватар пользователя
   refreshAvatar = (imageUrl) => {
-    return this._requestConfig('/users/me/avatar', 'PATCH', { avatar: imageUrl })
-  }*/
+    return this._setRequest('/users/me/avatar', 'PATCH', { avatar: imageUrl })
+  }
 }
 
 // Шаблон обработчика запроса на сервер

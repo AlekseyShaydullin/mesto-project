@@ -33,16 +33,11 @@ const user = {}
 
 const newCard = { owner: {} };
 
-const links = {
-  card: '/cards',
-  user: '/users/me'
-}
 
-const api = new Api({ apiConfig, url: links.card });
-const user1 = new Api({ apiConfig, url: links.user })
-console.log(api.getData('GET'));
+const api = new Api( apiConfig );
+console.log(api.getCards());
 
-Promise.allSettled([user1.getData(), api.getData()])
+Promise.allSettled([api.getUserId(), api.getCards()])
   .then(([{ value: user }, { value: cards }]) => {
     nameProfile.textContent = user?.name;
     jobProfile.textContent = user?.about;
