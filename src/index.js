@@ -2,7 +2,8 @@ import './pages/index.css';
 import { createCard } from './components/card.js';
 import { openPopup, closePopup } from './components/modal.js';
 import { enableValidation, clearValidation } from './components/validate.js';
-import { getUserId, getCards, editProfileData, addNewCard, refreshAvatar, Api, apiConfig } from './components/api';
+import { editProfileData, addNewCard, refreshAvatar, Api, apiConfig } from './components/api';
+import { Card } from './components/CardNew';
 
 const profile = document.querySelector('.profile');
 const profileContainer = profile.querySelector('.profile__bio');
@@ -33,9 +34,7 @@ const user = {}
 
 const newCard = { owner: {} };
 
-
 const api = new Api( apiConfig );
-console.log(api.getCards());
 
 Promise.allSettled([api.getUserId(), api.getCards()])
   .then(([{ value: user }, { value: cards }]) => {
@@ -130,7 +129,10 @@ function removeLastElement() {
 export function fillCards(cards) {
   const cardsHtml = document.createElement('div')
   cardsHtml.classList.add('elements__wrapper');
-  cards.forEach(card => cardsHtml.append(createCard(card)))
+  cards.forEach(data => {
+    const card = new Card(data, '#card-template', userId);
+    cardsHtml.append(card.createCard())
+  })
   const cardBoxChild = cardBox.querySelector('.elements__wrapper');
   cardBox.replaceChild(cardsHtml, cardBoxChild);
 }
