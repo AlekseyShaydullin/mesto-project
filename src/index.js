@@ -137,4 +137,22 @@ export function fillCards(cards) {
   cardBox.replaceChild(cardsHtml, cardBoxChild);
 }
 
+function getLike(card, likeCard, counterLikes) {
+  if (likeCard.classList.contains('element__button-like_active')) {
+    delLikeCard(card._id)
+      .then(res => {
+        counterLikes.textContent = res.likes.length;
+        likeCard.classList.remove('element__button-like_active');
+      })
+      .catch(err => console.log(err))
+  } else if (!likeCard.classList.contains('element__button-like_active')) {
+    addLikeCard(card._id)
+      .then(res => {
+        counterLikes.textContent = res.likes.length;
+        likeCard.classList.add('element__button-like_active');
+      })
+      .catch(err => console.log(err))
+  }
+}
+
 enableValidation();
