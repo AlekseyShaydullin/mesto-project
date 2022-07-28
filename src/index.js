@@ -3,7 +3,7 @@ import { createCard } from './components/card.js';
 import { openPopup, closePopup } from './components/modal.js';
 import { enableValidation, clearValidation } from './components/validate.js';
 import { editProfileData, addNewCard, refreshAvatar, Api, apiConfig } from './components/api';
-import { Card } from './components/CardNew';
+import Card from './components/CardNew';
 
 const profile = document.querySelector('.profile');
 const profileContainer = profile.querySelector('.profile__bio');
@@ -140,20 +140,14 @@ export function fillCards(cards) {
   cardBox.replaceChild(cardsHtml, cardBoxChild);
 }
 
-function handleLikeCard(id, likeCard, counterLikes) {
+function handleLikeCard(id, likeCard) {
   if (likeCard.classList.contains('element__button-like_active')) {
     api.delLikeCard(id)
-      .then(res => {
-        counterLikes.textContent = res.likes.length;
-        likeCard.classList.remove('element__button-like_active');
-      })
+      .then(res => this._delLike(res))
       .catch(err => console.log(err))
   } else if (!likeCard.classList.contains('element__button-like_active')) {
     api.addLikeCard(id)
-      .then(res => {
-        counterLikes.textContent = res.likes.length;
-        likeCard.classList.add('element__button-like_active');
-      })
+      .then(res => this._addLike(res))
       .catch(err => console.log(err))
   }
 }

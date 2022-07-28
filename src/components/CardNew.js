@@ -41,7 +41,7 @@ export default class Card {
 
   _setEventListener() {
     this._likeCard.addEventListener('click', () => {
-      this._handleLikeCard(this._id, this._likeCard, this._counterLikes)
+      this._handleLikeCard(this._id, this._likeCard)
     })
   }
 
