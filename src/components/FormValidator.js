@@ -5,7 +5,7 @@ export default class FormValidator {
 		this._errorItems = [...this._form.querySelectorAll(`.${this._validationConfig.errorClass}`)];
 		this._inputErrorList = [...this._form.querySelectorAll(`.${this._validationConfig.inputErrorClass}`)];
 		this._buttonElement = this._form.querySelector(this._validationConfig.submitButtonSelector);
-		this._inputList = [...this._form.querySelectorAll(this._validationConfig.formSelector)];
+		this._inputList = [...this._form.querySelectorAll(this._validationConfig.inputSelector)];
 	}
 
 	_showInputError(inputElement) {
@@ -41,7 +41,7 @@ export default class FormValidator {
 	}
 
 	_hasInvalidInput() {
-		return this._inputErrorList.some((inputElement) => !inputElement.validity.valid);
+		return this._inputList.some((inputElement) => !inputElement.validity.valid);
 	}
 
 	_setEventListeners() {

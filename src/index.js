@@ -1,9 +1,10 @@
 import './pages/index.css';
 import { createCard } from './components/card.js';
 import { openPopup, closePopup } from './components/modal.js';
-import { enableValidation, clearValidation } from './components/validate.js';
+import { enableValidation, clearValidation, validationConfig } from './components/validate.js';
 import { editProfileData, addNewCard, refreshAvatar, Api, apiConfig } from './components/api';
 import Card from './components/CardNew';
+import FormValidator from './components/FormValidator'
 
 const profile = document.querySelector('.profile');
 const profileContainer = profile.querySelector('.profile__bio');
@@ -27,6 +28,7 @@ const refreshAvatarPopup = document.querySelector('.popup__refresh-avatar'); // 
 const inputAvatar = document.querySelector('.popup__input_data_link-avatar'); // строка ввода ссылки на аватар
 const saveAvatarButton = document.querySelector('.popup__saveAvatar'); // кнопка сохранить аватар
 const profileAvatar = document.querySelector('.profile__avatar'); // аватар профайла
+const formUserAvatar = refreshAvatarPopup.querySelector('.popup__avatar-edit');
 
 export const userId = {}
 
@@ -37,6 +39,11 @@ const newCard = { owner: {} };
 const api = new Api(apiConfig);
 const cardApi = api.getCards();
 const userApi = api.getUserId();
+
+const profileFormValidation = new FormValidator(validationConfig, formUserAddInfo);
+const cardFormValidation = new FormValidator(validationConfig, formUserAddCard);
+const avatarFormValidation = new FormValidator(validationConfig, formUserAvatar);
+[profileFormValidation, cardFormValidation, avatarFormValidation].forEach(form => form.enableValidation())
 
 
 Promise.allSettled([userApi, cardApi])
@@ -52,7 +59,7 @@ Promise.allSettled([userApi, cardApi])
 // Открытие Popup окна - Profile:
 buttonAddInfo.addEventListener('click', () => {
   openPopup(profilePopup);
-  clearValidation(profilePopup);
+  profileFormValidation.clearValidation();
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
 });
@@ -78,7 +85,7 @@ function submitProfileForm(evt) {
 // Открытие Popup окна - Element:
 cardButtonAdd.addEventListener('click', () => {
   openPopup(cardPopup);
-  clearValidation(cardPopup);
+  cardFormValidation.clearValidation();
 });
 
 // Сохранение внесенной информации в Popup окне - Element:
@@ -106,7 +113,7 @@ formUserAddCard.addEventListener('submit', submitCardForm);
 // Открытие Popup окна - Refresh Avatar:
 refreshButtonAvatar.addEventListener('click', () => {
   openPopup(refreshAvatarPopup);
-  clearValidation(refreshAvatarPopup);
+  avatarFormValidation.clearValidation();
 })
 
 // Сохранение внесенной информации в Popup окне - Refresh Avatar:
@@ -152,4 +159,4 @@ function handleLikeCard(id, likeCard) {
   }
 }
 
-enableValidation();
+//enableValidation();

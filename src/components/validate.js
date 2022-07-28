@@ -1,6 +1,6 @@
 //Объект данных для Валидации:
 const validationConfig = {
-  formSelector: '.popup__form',
+  // formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button',
   inactiveButtonClass: 'popup__button_inactive',
@@ -93,4 +93,4 @@ const clearValidation = (formItem, settings = validationConfig) => {
   });
 }
 
-export { enableValidation, clearValidation };
+export { enableValidation, clearValidation, validationConfig };
