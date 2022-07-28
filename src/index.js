@@ -34,9 +34,12 @@ const user = {}
 
 const newCard = { owner: {} };
 
-const api = new Api( apiConfig );
+const api = new Api(apiConfig);
+const cardApi = api.getCards();
+const userApi = api.getUserId();
 
-Promise.allSettled([api.getUserId(), api.getCards()])
+
+Promise.allSettled([userApi, cardApi])
   .then(([{ value: user }, { value: cards }]) => {
     nameProfile.textContent = user?.name;
     jobProfile.textContent = user?.about;
@@ -130,23 +133,23 @@ export function fillCards(cards) {
   const cardsHtml = document.createElement('div')
   cardsHtml.classList.add('elements__wrapper');
   cards.forEach(data => {
-    const card = new Card(data, '#card-template', userId);
+    const card = new Card(data, '#card-template', userId, handleLikeCard);
     cardsHtml.append(card.createCard())
   })
   const cardBoxChild = cardBox.querySelector('.elements__wrapper');
   cardBox.replaceChild(cardsHtml, cardBoxChild);
 }
 
-function getLike(card, likeCard, counterLikes) {
+function handleLikeCard(id, likeCard, counterLikes) {
   if (likeCard.classList.contains('element__button-like_active')) {
-    delLikeCard(card._id)
+    api.delLikeCard(id)
       .then(res => {
         counterLikes.textContent = res.likes.length;
         likeCard.classList.remove('element__button-like_active');
       })
       .catch(err => console.log(err))
   } else if (!likeCard.classList.contains('element__button-like_active')) {
-    addLikeCard(card._id)
+    api.addLikeCard(id)
       .then(res => {
         counterLikes.textContent = res.likes.length;
         likeCard.classList.add('element__button-like_active');

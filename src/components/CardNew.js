@@ -1,5 +1,5 @@
-export class Card {
-  constructor(data, selector, userId) {
+export default class Card {
+  constructor(data, selector, userId, handleLikeCard) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
@@ -7,6 +7,7 @@ export class Card {
     this._id = data._id;
     this._userId = userId;
     this._selector = selector;
+    this._handleLikeCard = handleLikeCard;
   }
 
   _getTemplateCard() {
@@ -20,15 +21,15 @@ export class Card {
     this._likeCard.classList.add('element__button-like_active');
     this._counterLikes.textContent = res.likes.length;
   }
-  
+
   _delLike(res) {
     this._likeCard.classList.remove('element__button-like_active');
     this._counterLikes.textContent = res.likes.length;
   }
 
   _statusLike() {
-    if (this._likes.find((_id) => _id === this._userId)) {
-      likeCard.classList.add('element__button-like_active');
+    if (this._likes.find((like) => like._id === this._userId._id)) {
+      this._likeCard.classList.add('element__button-like_active');
     }
   }
 
@@ -40,7 +41,7 @@ export class Card {
 
   _setEventListener() {
     this._likeCard.addEventListener('click', () => {
-      this._likeCard.classList.toggle('element__button-like_active')
+      this._handleLikeCard(this._id, this._likeCard, this._counterLikes)
     })
   }
 
