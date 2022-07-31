@@ -82,7 +82,7 @@ function deleteCard(evt) {
   delNewCard(deleteCardId)
     .then(() => {
       getCards().then((cards) => {
-        fillCards(cards)
+        // fillCards(cards)
         closePopup(deleteCardPopup);
       })
     })

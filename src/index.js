@@ -1,10 +1,11 @@
 import './pages/index.css';
 import { createCard } from './components/card.js';
 import { openPopup, closePopup } from './components/modal.js';
-import { enableValidation, clearValidation, validationConfig } from './components/validate.js';
+import { validationConfig } from './components/validate.js';
 import { editProfileData, addNewCard, refreshAvatar, Api, apiConfig } from './components/api';
 import Card from './components/CardNew';
 import FormValidator from './components/FormValidator'
+import Section from './components/Section';
 
 const profile = document.querySelector('.profile');
 const profileContainer = profile.querySelector('.profile__bio');
@@ -52,7 +53,8 @@ Promise.allSettled([userApi, cardApi])
     jobProfile.textContent = user?.about;
     profileAvatar.src = user?.avatar;
     userId._id = user?._id;
-    fillCards(cards)
+    const card = new Section({items: cards, renderer: renderer}, 'elements__wrapper');
+    card.rendererItems()
   })
   .catch(err => { console.log(err) })
 
@@ -136,17 +138,6 @@ function removeLastElement() {
   cards[cards.length - 1].remove();
 }
 
-export function fillCards(cards) {
-  const cardsHtml = document.createElement('div')
-  cardsHtml.classList.add('elements__wrapper');
-  cards.forEach(data => {
-    const card = new Card(data, '#card-template', userId, handleLikeCard);
-    cardsHtml.append(card.createCard())
-  })
-  const cardBoxChild = cardBox.querySelector('.elements__wrapper');
-  cardBox.replaceChild(cardsHtml, cardBoxChild);
-}
-
 function handleLikeCard(id, likeCard) {
   if (likeCard.classList.contains('element__button-like_active')) {
     api.delLikeCard(id)
@@ -159,4 +150,7 @@ function handleLikeCard(id, likeCard) {
   }
 }
 
-//enableValidation();
+function renderer(item) {
+  const card = new Card(item, '#card-template', userId, handleLikeCard);
+  return card.createCard()
+}
