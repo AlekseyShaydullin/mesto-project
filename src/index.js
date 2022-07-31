@@ -6,6 +6,7 @@ import { editProfileData, addNewCard, refreshAvatar, Api, apiConfig } from './co
 import Card from './components/CardNew';
 import FormValidator from './components/FormValidator'
 import Section from './components/Section';
+import Popup from './components/Popup';
 
 const profile = document.querySelector('.profile');
 const profileContainer = profile.querySelector('.profile__bio');
@@ -58,9 +59,13 @@ Promise.allSettled([userApi, cardApi])
   })
   .catch(err => { console.log(err) })
 
+
+const popupProfile = new Popup('.popup_profile-edit');
+
 // Открытие Popup окна - Profile:
 buttonAddInfo.addEventListener('click', () => {
-  openPopup(profilePopup);
+  popupProfile.openPopup()
+  // openPopup(profilePopup);
   profileFormValidation.clearValidation();
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
