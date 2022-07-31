@@ -7,6 +7,7 @@ import Card from './components/CardNew';
 import FormValidator from './components/FormValidator'
 import Section from './components/Section';
 import Popup from './components/Popup';
+import PopupWithImage from './components/PopupWithImage';
 
 const profile = document.querySelector('.profile');
 const profileContainer = profile.querySelector('.profile__bio');
@@ -156,6 +157,12 @@ function handleLikeCard(id, likeCard) {
 }
 
 function renderer(item) {
-  const card = new Card(item, '#card-template', userId, handleLikeCard);
+  const card = new Card(item, '#card-template', userId, handleLikeCard, openPopupImage);
   return card.createCard()
+}
+
+const popupImage = new PopupWithImage('.popup__image')
+
+function openPopupImage(name, link) {
+  popupImage.openPopup(name, link)
 }
