@@ -8,6 +8,7 @@ import FormValidator from './components/FormValidator'
 import Section from './components/Section';
 import Popup from './components/Popup';
 import PopupWithImage from './components/PopupWithImage';
+import PopupWithDeleteCard from './components/PopupWithDeleteCard';
 
 const profile = document.querySelector('.profile');
 const profileContainer = profile.querySelector('.profile__bio');
@@ -157,12 +158,30 @@ function handleLikeCard(id, likeCard) {
 }
 
 function renderer(item) {
-  const card = new Card(item, '#card-template', userId, handleLikeCard, openPopupImage);
+  const card = new Card(item, '#card-template', userId, handleLikeCard, openPopupImage, deleteCard);
   return card.createCard()
 }
 
-const popupImage = new PopupWithImage('.popup__image')
+const popupImage = new PopupWithImage('.popup__image');
+const popupTrash = new PopupWithDeleteCard('.popup__delete-card', submitDeleteCard);
 
 function openPopupImage(name, link) {
   popupImage.openPopup(name, link)
+}
+
+function submitDeleteCard(id) {
+  api.delNewCard(id)
+    .then(() => {
+      api.getCards()
+        .then((cards) => {
+          const card = new Section({items: cards, renderer: renderer}, 'elements__wrapper');
+          card.rendererItems()
+          popupTrash.closePopup();
+        })
+    })
+    .catch(err => console.log(err))
+}
+
+function deleteCard(id) {
+  popupTrash.openPopup(id)
 }
