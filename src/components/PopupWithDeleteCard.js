@@ -8,17 +8,21 @@ export default class PopupWithDeleteCard extends Popup {
   }
 
   openPopup(id) {
-    super.openPopup()
-    this.setEventListener(id)
+    super.openPopup();
+    this._popup.dataset.id = id;
   }
 
-  setEventListener(id) {
+  setEventListener() {
     super.setEventListener();
-    console.log('hi');
     this._form.addEventListener('submit', (evt) => {
+      console.log(evt);
       evt.preventDefault();
-      // console.log('hi');
-      this._submit(id)
+      this._submit(this._popup.dataset.id);
     })
+  }
+
+  closePopup() {
+    super.closePopup();
+    this._popup.dataset.id = '';
   }
 }

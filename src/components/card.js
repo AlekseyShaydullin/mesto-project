@@ -9,7 +9,7 @@ const fotoPopup = document.querySelector('.popup__foto'); // фото попап
 const deleteCardPopup = document.querySelector('.popup__delete-card'); //попап подтверждения удаления картинки
 
 // Добавление новых карточек - Element:
-function createCard(card) {
+/*function createCard(card) {
   const { name, link, likes, owner, _id } = card;
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
   const img = cardElement.querySelector('.element__foto');
@@ -54,10 +54,10 @@ function createCard(card) {
   img.addEventListener('click', renderImage);
 
   return cardElement;
-}
+}*/
 
 //Like:
-function getLike(card, likeCard, counterLikes) {
+/*function getLike(card, likeCard, counterLikes) {
   if (likeCard.classList.contains('element__button-like_active')) {
     delLikeCard(card._id)
       .then(res => {
@@ -73,10 +73,10 @@ function getLike(card, likeCard, counterLikes) {
       })
       .catch(err => console.log(err))
   }
-}
+}*/
 
 //Trash:
-function deleteCard(evt) {
+/*function deleteCard(evt) {
   evt.preventDefault();
   const deleteCardId = deleteCardPopup.dataset.id;
   delNewCard(deleteCardId)
@@ -88,14 +88,14 @@ function deleteCard(evt) {
     })
     .catch(err => console.log(err))
     .finally(() => deleteCardPopup.dataset.id = "");
-}
+}*/
 
 //Отрисовка модального окна Image:
-const renderImage = (evt) => {
+/*const renderImage = (evt) => {
   fotoPopup.src = evt.target.src;
   fotoPopup.alt = evt.target.alt;
   captionPopup.textContent = evt.target.alt;
   openPopup(imagePopup);
-}
+}*/
 
 export { createCard }

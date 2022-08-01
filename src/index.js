@@ -1,5 +1,5 @@
 import './pages/index.css';
-import { createCard } from './components/card.js';
+//import { createCard } from './components/card.js';
 import { openPopup, closePopup } from './components/modal.js';
 import { validationConfig } from './components/validate.js';
 import { editProfileData, addNewCard, refreshAvatar, Api, apiConfig } from './components/api';
@@ -44,10 +44,15 @@ const api = new Api(apiConfig);
 const cardApi = api.getCards();
 const userApi = api.getUserId();
 
+const section = new Section(renderer, 'elements__wrapper');
+
 const profileFormValidation = new FormValidator(validationConfig, formUserAddInfo);
 const cardFormValidation = new FormValidator(validationConfig, formUserAddCard);
 const avatarFormValidation = new FormValidator(validationConfig, formUserAvatar);
 [profileFormValidation, cardFormValidation, avatarFormValidation].forEach(form => form.enableValidation())
+
+const popupImage = new PopupWithImage('.popup__image');
+const popupTrash = new PopupWithDeleteCard('.popup__delete-card', submitDeleteCard);
 
 
 Promise.allSettled([userApi, cardApi])
@@ -56,8 +61,7 @@ Promise.allSettled([userApi, cardApi])
     jobProfile.textContent = user?.about;
     profileAvatar.src = user?.avatar;
     userId._id = user?._id;
-    const card = new Section({items: cards, renderer: renderer}, 'elements__wrapper');
-    card.rendererItems()
+    section.rendererItems(cards)
   })
   .catch(err => { console.log(err) })
 
@@ -162,9 +166,6 @@ function renderer(item) {
   return card.createCard()
 }
 
-const popupImage = new PopupWithImage('.popup__image');
-const popupTrash = new PopupWithDeleteCard('.popup__delete-card', submitDeleteCard);
-
 function openPopupImage(name, link) {
   popupImage.openPopup(name, link)
 }
@@ -174,8 +175,7 @@ function submitDeleteCard(id) {
     .then(() => {
       api.getCards()
         .then((cards) => {
-          const card = new Section({items: cards, renderer: renderer}, 'elements__wrapper');
-          card.rendererItems()
+          section.rendererItems(cards)
           popupTrash.closePopup();
         })
     })
@@ -185,3 +185,5 @@ function submitDeleteCard(id) {
 function deleteCard(id) {
   popupTrash.openPopup(id)
 }
+
+popupTrash.setEventListener();
