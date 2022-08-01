@@ -2,13 +2,14 @@ import './pages/index.css';
 //import { createCard } from './components/card.js';
 import { openPopup, closePopup } from './components/modal.js';
 import { validationConfig } from './components/validate.js';
-import { editProfileData, addNewCard, refreshAvatar, Api, apiConfig } from './components/api';
+import { editProfileData, refreshAvatar, Api, apiConfig } from './components/api';
 import Card from './components/CardNew';
 import FormValidator from './components/FormValidator'
 import Section from './components/Section';
 import Popup from './components/Popup';
 import PopupWithImage from './components/PopupWithImage';
 import PopupWithDeleteCard from './components/PopupWithDeleteCard';
+import PopupWithForm from './components/PopupWithForm';
 
 const profile = document.querySelector('.profile');
 const profileContainer = profile.querySelector('.profile__bio');
@@ -38,7 +39,7 @@ export const userId = {}
 
 const user = {}
 
-const newCard = { owner: {} };
+//const newCard = { owner: {} };
 
 const api = new Api(apiConfig);
 const cardApi = api.getCards();
@@ -53,7 +54,7 @@ const avatarFormValidation = new FormValidator(validationConfig, formUserAvatar)
 
 const popupImage = new PopupWithImage('.popup__image');
 const popupTrash = new PopupWithDeleteCard('.popup__delete-card', submitDeleteCard);
-
+const popupCard = new PopupWithForm('.popup_element-edit', submitNewCard);
 
 Promise.allSettled([userApi, cardApi])
   .then(([{ value: user }, { value: cards }]) => {
@@ -102,26 +103,36 @@ cardButtonAdd.addEventListener('click', () => {
 });
 
 // Сохранение внесенной информации в Popup окне - Element:
-function submitCardForm(evt) {
-  evt.preventDefault();
-  newCard.name = titleInputCard.value;
-  newCard.link = photoInputCard.value;
-  saveCardButton.textContent = 'Добавление...';
-  addNewCard(newCard)
+// function submitCardForm(evt) {
+//   evt.preventDefault();
+//   newCard.name = titleInputCard.value;
+//   newCard.link = photoInputCard.value;
+//   saveCardButton.textContent = 'Добавление...';
+//   addNewCard(newCard)
+//     .then((card) => {
+//       const cardBoxChild = cardBox.querySelector('.elements__wrapper');
+//       cardBoxChild.prepend(createCard(card));
+//       removeLastElement();
+//       closePopup(cardPopup);
+//     })
+//     .catch(err => console.log(err))
+//     .finally(() => {
+//       saveCardButton.textContent = 'Добавить';
+//       formUserAddCard.reset();
+//     })
+// }
+
+function submitNewCard(data) {
+  api.addNewCard(data)
     .then((card) => {
-      const cardBoxChild = cardBox.querySelector('.elements__wrapper');
-      cardBoxChild.prepend(createCard(card));
-      removeLastElement();
-      closePopup(cardPopup);
+      section.addItem(renderer(card));
+      removeLastElement()
+      popupCard.closePopup();
     })
     .catch(err => console.log(err))
-    .finally(() => {
-      saveCardButton.textContent = 'Добавить';
-      formUserAddCard.reset();
-    })
 }
 
-formUserAddCard.addEventListener('submit', submitCardForm);
+// formUserAddCard.addEventListener('submit', submitCardForm);
 
 // Открытие Popup окна - Refresh Avatar:
 refreshButtonAvatar.addEventListener('click', () => {
@@ -187,3 +198,4 @@ function deleteCard(id) {
 }
 
 popupTrash.setEventListener();
+popupCard.setEventListener()

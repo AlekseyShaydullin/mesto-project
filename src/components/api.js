@@ -40,37 +40,37 @@ export class Api {
   getCards = () => {
     return this._getRequest('/cards')
   }
-  
+
   // Получить данные пользователя
   getUserId = () => {
     return this._getRequest('/users/me')
   }
-  
+
   // Отправить данные пользователя на сервер
   editProfileData = (user) => {
     return this._setRequest('/users/me', 'PATCH', user)
   }
-  
+
   // Отправить данные новой карточки на сервер
   addNewCard = (newCard) => {
     return this._setRequest('/cards', 'POST', newCard)
   }
-  
+
   // Удалить карточку добавленную пользователем
   delNewCard = (cardId) => {
     return this._getRequest(`/cards/${cardId}`, 'DELETE')
   }
-  
+
   // Добавить лайк карточке
   addLikeCard = (cardId) => {
     return this._getRequest(`/cards/likes/${cardId}`, 'PUT')
   }
-  
+
   // Удалить лайк карточки
   delLikeCard = (cardId) => {
     return this._getRequest(`/cards/likes/${cardId}`, 'DELETE')
   }
-  
+
   // Обновить аватар пользователя
   refreshAvatar = (imageUrl) => {
     return this._setRequest('/users/me/avatar', 'PATCH', { avatar: imageUrl })

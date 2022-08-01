@@ -9,13 +9,17 @@ export default class Section {
     this._cardsHtml = document.createElement('div');
     this._cardsHtml.classList.add(this._selector);
     items.forEach(item => {
-      this.addItem(this._renderer(item));
+      this._addItemDefault(this._renderer(item));
     })
     this._containerChild = this._container.querySelector(`.${this._selector}`);
     this._container.replaceChild(this._cardsHtml, this._containerChild);
   }
 
-  addItem(item) {
+  _addItemDefault(item) {
     this._cardsHtml.append(item)
+  }
+
+  addItem(item) {
+    this._container.querySelector(`.${this._selector}`).prepend(item)
   }
 }
