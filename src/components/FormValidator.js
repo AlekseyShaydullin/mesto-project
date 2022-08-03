@@ -2,8 +2,6 @@ export default class FormValidator {
 	constructor(validationConfig, form) {
 		this._validationConfig = validationConfig;
 		this._form = form;
-		this._errorItems = [...this._form.querySelectorAll(`.${this._validationConfig.errorClass}`)];
-		this._inputErrorList = [...this._form.querySelectorAll(`.${this._validationConfig.inputErrorClass}`)];
 		this._buttonElement = this._form.querySelector(this._validationConfig.submitButtonSelector);
 		this._inputList = [...this._form.querySelectorAll(this._validationConfig.inputSelector)];
 	}
@@ -57,6 +55,8 @@ export default class FormValidator {
 	}
 
 	_resetValidation() {
+		this._errorItems = [...this._form.querySelectorAll(`.${this._validationConfig.errorClass}`)];
+		this._inputErrorList = [...this._form.querySelectorAll(`.${this._validationConfig.inputErrorClass}`)];
 		this._errorItems.forEach(errorItem => {
 			errorItem.classList.remove(this._validationConfig.errorClass);
 		});
@@ -68,8 +68,8 @@ export default class FormValidator {
 	}
 
 	clearValidation() {
-		this._form.reset();
 		this._resetValidation();
+		this._form.reset();
 	}
 
 	enableValidation() {
