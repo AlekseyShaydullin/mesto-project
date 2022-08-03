@@ -10,7 +10,7 @@ export default class Popup {
     this._setDefaultEventListener()
   }
 
-  closePopup = () => {
+  closePopup () {
     this._popup.classList.remove('popup_opened');
     this._removeDefaultEventListener();
   }
@@ -38,6 +38,6 @@ export default class Popup {
   }
 
   setEventListener() {
-    this._buttonClose.addEventListener('click', this.closePopup);
+    this._buttonClose.addEventListener('click', () => this.closePopup());
   }
 }

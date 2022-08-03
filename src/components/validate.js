@@ -1,4 +1,4 @@
-//Объект данных для Валидации:
+// //Объект данных для Валидации:
 const validationConfig = {
   // formSelector: '.popup__form',
   inputSelector: '.popup__input',

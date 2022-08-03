@@ -8,13 +8,13 @@ import Section from './components/Section';
 import PopupWithImage from './components/PopupWithImage';
 import PopupWithDeleteCard from './components/PopupWithDeleteCard';
 import PopupWithForm from './components/PopupWithForm';
+import UserInfo from './components/UserInfo';
 
 const profile = document.querySelector('.profile');
 const profileContainer = profile.querySelector('.profile__bio');
 const nameProfile = profileContainer.querySelector('.profile__name'); // имя владельца профайла
 const jobProfile = profileContainer.querySelector('.profile__about'); // профессия владельца профайла
 const buttonAddInfo = document.querySelector('.profile__edit-button'); // кнопка вызывающая окно редактирование профиля
-// const profilePopup = document.querySelector('.popup_profile-edit'); // попап редактировать профиль
 const cardButtonAdd = document.querySelector('.profile__add-button'); // кнопка вызывающая окно редактирование карточек
 const formUserAddInfo = document.querySelector('.popup__userAddInfo'); // попап форма редактировать профиль
 const cardBox = document.querySelector('.elements'); // коробка карточек
@@ -42,10 +42,13 @@ const popupTrash = new PopupWithDeleteCard('.popup__delete-card', submitDeleteCa
 const popupCard = new PopupWithForm('.popup_element-edit', submitNewCard);
 const popupProfile = new PopupWithForm('.popup_profile-edit', submitEditProfile);
 const popupAvatar = new PopupWithForm('.popup__refresh-avatar', submitEditAvatar);
+const userInfo = new UserInfo({name: '.profile__name', about: '.profile__about'})
+
+const user = {name: popupProfile._inputList[0], about: popupProfile._inputList[1]}
 
 Promise.allSettled([userApi, cardApi])
   .then(([{ value: user }, { value: cards }]) => {
-    nameProfile.textContent = user?.name;
+    nameProfile.textContent = user?.name;    
     jobProfile.textContent = user?.about;
     profileAvatar.src = user?.avatar;
     userId._id = user?._id;
@@ -57,6 +60,10 @@ Promise.allSettled([userApi, cardApi])
 buttonAddInfo.addEventListener('click', () => {
   popupProfile.openPopup();
   profileFormValidation.clearValidation();
+  const {name, about} = userInfo.getUserInfo()
+  console.log(user.name);
+  user.name.value = name;
+  user.about.value = about;
 });
 
 function submitEditProfile(data) {
