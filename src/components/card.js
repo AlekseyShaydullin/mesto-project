@@ -1,101 +1,72 @@
-import { openPopup, closePopup } from './modal';
-import { addLikeCard, delLikeCard, delNewCard, getCards } from './api';
-import { userId, fillCards } from '../index';
-
-const cardTemplate = document.querySelector('#card-template').content;
-const imagePopup = document.querySelector('.popup__image'); // попап Image
-const captionPopup = document.querySelector('.popup__caption-foto'); // подпись фотографии попапа Image
-const fotoPopup = document.querySelector('.popup__foto'); // фото попапа Image
-const deleteCardPopup = document.querySelector('.popup__delete-card'); //попап подтверждения удаления картинки
-
-// Добавление новых карточек - Element:
-/*function createCard(card) {
-  const { name, link, likes, owner, _id } = card;
-  const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-  const img = cardElement.querySelector('.element__foto');
-  const captionCard = cardElement.querySelector('.element__caption');
-  const likeCard = captionCard.querySelector('.element__button-like');
-  const buttonTrashCard = cardElement.querySelector('.element__button-trash'); // кнопка удалить
-  const counterLikes = cardElement.querySelector('.element__button-like-count');
-
-  cardElement.id = _id;
-  img.src = link;
-  img.alt = name;
-  cardElement.querySelector('.element__caption-town').textContent = name;
-
-  // Каунтер Like:
-  counterLikes.textContent = likes.length;
-
-  // Реализация конпки Like:
-  likeCard.addEventListener('click', () => {
-    getLike(card, likeCard, counterLikes)
-  });
-
-  // Фильтр активного лайка:
-  if (likes.find((_id) => _id === userId._id)) {
-    likeCard.classList.add('element__button-like_active');
+export default class Card {
+  constructor(data, selector, userId, handleLikeCard, openPopupImage, deleteCard) {
+    this._name = data.name;
+    this._link = data.link;
+    this._likes = data.likes;
+    this._owner = data.owner;
+    this._id = data._id;
+    this._userId = userId;
+    this._selector = selector;
+    this._handleLikeCard = handleLikeCard;
+    this._openPopupImage = openPopupImage;
+    this._deleteCard = deleteCard;
   }
 
-  // Фильтр кнопки Trash:
-  if (userId._id !== owner._id) {
-    buttonTrashCard.classList.add('element__button-trash_disactiv');
+  _getTemplateCard() {
+    return document
+      .querySelector(`${this._selector}`)
+      .content.querySelector('.element')
+      .cloneNode(true)
   }
 
-  // Открываем Popup окно - Delite Card
-  buttonTrashCard.addEventListener('click', () => {
-    openPopup(deleteCardPopup);
-    deleteCardPopup.dataset.id = _id;
-  })
-
-  // Удаление карточки
-  deleteCardPopup.addEventListener('submit', deleteCard);
-
-  // Открытие Popup окна - Image:
-  img.addEventListener('click', renderImage);
-
-  return cardElement;
-}*/
-
-//Like:
-/*function getLike(card, likeCard, counterLikes) {
-  if (likeCard.classList.contains('element__button-like_active')) {
-    delLikeCard(card._id)
-      .then(res => {
-        counterLikes.textContent = res.likes.length;
-        likeCard.classList.remove('element__button-like_active');
-      })
-      .catch(err => console.log(err))
-  } else if (!likeCard.classList.contains('element__button-like_active')) {
-    addLikeCard(card._id)
-      .then(res => {
-        counterLikes.textContent = res.likes.length;
-        likeCard.classList.add('element__button-like_active');
-      })
-      .catch(err => console.log(err))
+  _addLike(res) {
+    this._likeCard.classList.add('element__button-like_active');
+    this._counterLikes.textContent = res.likes.length;
   }
-}*/
 
-//Trash:
-/*function deleteCard(evt) {
-  evt.preventDefault();
-  const deleteCardId = deleteCardPopup.dataset.id;
-  delNewCard(deleteCardId)
-    .then(() => {
-      getCards().then((cards) => {
-        // fillCards(cards)
-        closePopup(deleteCardPopup);
-      })
+  _delLike(res) {
+    this._likeCard.classList.remove('element__button-like_active');
+    this._counterLikes.textContent = res.likes.length;
+  }
+
+  _statusLike() {
+    if (this._likes.find((like) => like._id === this._userId._id)) {
+      this._likeCard.classList.add('element__button-like_active');
+    }
+  }
+
+  _statusTrash() {
+    if (this._userId._id !== this._owner._id) {
+      this._buttonTrashCard.classList.add('element__button-trash_disactiv');
+    }
+  }
+
+  _setEventListener() {
+    this._likeCard.addEventListener('click', () => {
+      this._handleLikeCard(this._id, this._likeCard)
     })
-    .catch(err => console.log(err))
-    .finally(() => deleteCardPopup.dataset.id = "");
-}*/
+    this._img.addEventListener('click', () => {
+      this._openPopupImage(this._name, this._link);
+    })
+    this._buttonTrashCard.addEventListener('click', () => {
+      this._deleteCard(this._element.id);
+    })
+  }
 
-//Отрисовка модального окна Image:
-/*const renderImage = (evt) => {
-  fotoPopup.src = evt.target.src;
-  fotoPopup.alt = evt.target.alt;
-  captionPopup.textContent = evt.target.alt;
-  openPopup(imagePopup);
-}*/
-
-export { createCard }
+  createCard() {
+    this._element = this._getTemplateCard();
+    this._img = this._element.querySelector('.element__foto');
+    this._element.querySelector('.element__caption-town').textContent = this._name;
+    this._likeCard = this._element.querySelector('.element__button-like');
+    this._buttonTrashCard = this._element.querySelector('.element__button-trash');
+    this._counterLikes = this._element.querySelector('.element__button-like-count');
+    this._img.src = this._link;
+    this._img.alt = this._name;
+    this._element.id = this._id;
+    this._counterLikes.textContent = this._likes.length;
+    this._statusLike();
+    this._statusTrash();
+    this._setEventListener()
+    return this._element;
+  }
+}

@@ -1,52 +1,23 @@
 import './pages/index.css';
-import Api from './components/api';
-import Card from './components/CardNew';
+import Api from './components/Api';
+import Card from './components/Card';
 import FormValidator from './components/FormValidator'
 import Section from './components/Section';
 import PopupWithImage from './components/PopupWithImage';
 import PopupWithDeleteCard from './components/PopupWithDeleteCard';
 import PopupWithForm from './components/PopupWithForm';
 import UserInfo from './components/UserInfo';
+import * as constants from './components/constants';
 
-const buttonAddInfo = document.querySelector('.profile__edit-button'); // кнопка вызывающая окно редактирование профиля
-const cardButtonAdd = document.querySelector('.profile__add-button'); // кнопка вызывающая окно редактирование карточек
-const formUserAddInfo = document.querySelector('.popup__userAddInfo'); // попап форма редактировать профиль
-const cardBox = document.querySelector('.elements'); // коробка карточек
-const formUserAddCard = document.querySelector('.popup__cardAdd'); // попап форма редактировать карточку
-const refreshButtonAvatar = document.querySelector('.profile__btn-refresh-avatar'); // кнопка изменения аватара
-const refreshAvatarPopup = document.querySelector('.popup__refresh-avatar'); // попап редактирования аватара
-const formUserAvatar = refreshAvatarPopup.querySelector('.popup__avatar-edit');
-const saveProfileButton = document.querySelector('.popup__saveProfile'); // кнопка сохранить введённые данные Юзера
-const saveAvatarButton = document.querySelector('.popup__saveAvatar'); // кнопка сохранить аватар
-const saveCardButton = document.querySelector('.popup__saveCard'); // кнопка сохранить новую карточку
-
-const apiConfig = {
-  serverUrl: 'https://nomoreparties.co/v1/plus-cohort-12',
-  headers: {
-    authorization: '2c978f21-f56a-4fa6-b5d5-e5052862cd58',
-    'Content-Type': 'application/json'
-  }
-}
-
-const validationConfig = {
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
-}
-
-export const userId = {}
-
-const api = new Api(apiConfig);
+const api = new Api(constants.apiConfig);
 const cardApi = api.getCards();
 const userApi = api.getUserId();
 
 const section = new Section(renderer, 'elements__wrapper');
 
-const profileFormValidation = new FormValidator(validationConfig, formUserAddInfo);
-const cardFormValidation = new FormValidator(validationConfig, formUserAddCard);
-const avatarFormValidation = new FormValidator(validationConfig, formUserAvatar);
+const profileFormValidation = new FormValidator(constants.validationConfig, constants.formUserAddInfo);
+const cardFormValidation = new FormValidator(constants.validationConfig, constants.formUserAddCard);
+const avatarFormValidation = new FormValidator(constants.validationConfig, constants.formUserAvatar);
 
 const popupImage = new PopupWithImage('.popup__image');
 const popupTrash = new PopupWithDeleteCard('.popup__delete-card', submitDeleteCard);
@@ -58,29 +29,29 @@ const userInfo = new UserInfo({ name: '.profile__name', about: '.profile__about'
 const user = { name: popupProfile._inputList[0], about: popupProfile._inputList[1] }
 
 function submitEditProfile(data) {
-  saveProfileButton.textContent = 'Сохранение...';
+  constants.saveProfileButton.textContent = 'Сохранение...';
   api.editProfileData(data)
     .then((user) => {
       userInfo.setUserInfo(user);
       popupProfile.closePopup();
     })
     .catch(err => console.log(err))
-    .finally(() => saveProfileButton.textContent = 'Сохранить')
+    .finally(() => constants.saveProfileButton.textContent = 'Сохранить')
 }
 
 function submitEditAvatar(data) {
-  saveAvatarButton.textContent = 'Сохранение...';
+  constants.saveAvatarButton.textContent = 'Сохранение...';
   api.refreshAvatar(data)
     .then(avatar => {
       userInfo.setUserAvatar(avatar);
       popupAvatar.closePopup();
     })
     .catch(err => console.log(err))
-    .finally(() => saveAvatarButton.textContent = 'Сохранить');
+    .finally(() => constants.saveAvatarButton.textContent = 'Сохранить');
 }
 
 function submitNewCard(data) {
-  saveCardButton.textContent = 'Добавление...';
+  constants.saveCardButton.textContent = 'Добавление...';
   api.addNewCard(data)
     .then((card) => {
       section.addItem(renderer(card));
@@ -88,11 +59,11 @@ function submitNewCard(data) {
       popupCard.closePopup();
     })
     .catch(err => console.log(err))
-    .finally(() => saveCardButton.textContent = 'Добавить');
+    .finally(() => constants.saveCardButton.textContent = 'Добавить');
 }
 
 function removeLastElement() {
-  const cards = cardBox.querySelectorAll('.element');
+  const cards = constants.cardBox.querySelectorAll('.element');
   cards[cards.length - 1].remove();
 }
 
@@ -109,7 +80,7 @@ function handleLikeCard(id, likeCard) {
 }
 
 function renderer(item) {
-  const card = new Card(item, '#card-template', userId, handleLikeCard, openPopupImage, deleteCard);
+  const card = new Card(item, '#card-template', constants.userId, handleLikeCard, openPopupImage, deleteCard);
   return card.createCard()
 }
 
@@ -141,19 +112,19 @@ popupProfile.setEventListener();
 popupAvatar.setEventListener();
 
 // Открытие Popup окна - Refresh Avatar:
-refreshButtonAvatar.addEventListener('click', () => {
+constants.refreshButtonAvatar.addEventListener('click', () => {
   popupAvatar.openPopup();
   avatarFormValidation.clearValidation();
 });
 
 // Открытие Popup окна - Element:
-cardButtonAdd.addEventListener('click', () => {
+constants.cardButtonAdd.addEventListener('click', () => {
   popupCard.openPopup();
   cardFormValidation.clearValidation();
 });
 
 // Открытие Popup окна - Profile:
-buttonAddInfo.addEventListener('click', () => {
+constants.buttonAddInfo.addEventListener('click', () => {
   popupProfile.openPopup();
   profileFormValidation.clearValidation();
   const { name, about } = userInfo.getUserInfo();
@@ -165,7 +136,7 @@ Promise.allSettled([userApi, cardApi])
   .then(([{ value: user }, { value: cards }]) => {
     userInfo.setUserInfo(user);
     userInfo.setUserAvatar(user);
-    userId._id = user?._id;
+    constants.userId._id = user?._id;
     section.rendererItems(cards);
   })
   .catch(err => { console.log(err) });
