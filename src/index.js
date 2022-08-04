@@ -16,6 +16,9 @@ const formUserAddCard = document.querySelector('.popup__cardAdd'); // попап
 const refreshButtonAvatar = document.querySelector('.profile__btn-refresh-avatar'); // кнопка изменения аватара
 const refreshAvatarPopup = document.querySelector('.popup__refresh-avatar'); // попап редактирования аватара
 const formUserAvatar = refreshAvatarPopup.querySelector('.popup__avatar-edit');
+const saveProfileButton = document.querySelector('.popup__saveProfile'); // кнопка сохранить введённые данные Юзера
+const saveAvatarButton = document.querySelector('.popup__saveAvatar'); // кнопка сохранить аватар
+const saveCardButton = document.querySelector('.popup__saveCard'); // кнопка сохранить новую карточку
 
 const apiConfig = {
   serverUrl: 'https://nomoreparties.co/v1/plus-cohort-12',
@@ -55,24 +58,29 @@ const userInfo = new UserInfo({ name: '.profile__name', about: '.profile__about'
 const user = { name: popupProfile._inputList[0], about: popupProfile._inputList[1] }
 
 function submitEditProfile(data) {
+  saveProfileButton.textContent = 'Сохранение...';
   api.editProfileData(data)
     .then((user) => {
       userInfo.setUserInfo(user);
       popupProfile.closePopup();
     })
     .catch(err => console.log(err))
+    .finally(() => saveProfileButton.textContent = 'Сохранить')
 }
 
 function submitEditAvatar(data) {
+  saveAvatarButton.textContent = 'Сохранение...';
   api.refreshAvatar(data)
     .then(avatar => {
       userInfo.setUserAvatar(avatar);
       popupAvatar.closePopup();
     })
     .catch(err => console.log(err))
+    .finally(() => saveAvatarButton.textContent = 'Сохранить');
 }
 
 function submitNewCard(data) {
+  saveCardButton.textContent = 'Добавление...';
   api.addNewCard(data)
     .then((card) => {
       section.addItem(renderer(card));
@@ -80,6 +88,7 @@ function submitNewCard(data) {
       popupCard.closePopup();
     })
     .catch(err => console.log(err))
+    .finally(() => saveCardButton.textContent = 'Добавить');
 }
 
 function removeLastElement() {
