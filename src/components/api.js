@@ -1,13 +1,4 @@
-
-export const apiConfig = {
-  serverUrl: 'https://nomoreparties.co/v1/plus-cohort-12',
-  headers: {
-    authorization: '2c978f21-f56a-4fa6-b5d5-e5052862cd58',
-    'Content-Type': 'application/json'
-  }
-}
-
-export class Api {
+export default class Api {
   constructor(data) {
     this._serverUrl = data.serverUrl;
     this._headers = data.headers;
@@ -72,7 +63,7 @@ export class Api {
   }
 
   // Обновить аватар пользователя
-  refreshAvatar = (imageUrl) => {
+  refreshAvatar = ({ avatar: imageUrl }) => {
     return this._setRequest('/users/me/avatar', 'PATCH', { avatar: imageUrl })
   }
 }
