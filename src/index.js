@@ -27,29 +27,29 @@ const popupAvatar = new PopupWithForm('.popup__refresh-avatar', submitEditAvatar
 const userInfo = new UserInfo({ name: '.profile__name', about: '.profile__about', avatar: '.profile__avatar' })
 
 function submitEditProfile(data) {
-  constants.saveProfileButton.textContent = 'Сохранение...';
+  popupProfile.renderLoading(true);
   api.editProfileData(data)
     .then((user) => {
       userInfo.setUserInfo(user);
       popupProfile.closePopup();
     })
     .catch(err => console.log(err))
-    .finally(() => constants.saveProfileButton.textContent = 'Сохранить')
+    .finally(() => popupProfile.renderLoading(false))
 }
 
 function submitEditAvatar(data) {
-  constants.saveAvatarButton.textContent = 'Сохранение...';
+  popupAvatar.renderLoading(true);
   api.refreshAvatar(data)
     .then(avatar => {
       userInfo.setUserAvatar(avatar);
       popupAvatar.closePopup();
     })
     .catch(err => console.log(err))
-    .finally(() => constants.saveAvatarButton.textContent = 'Сохранить');
+    .finally(() => popupAvatar.renderLoading(false));
 }
 
 function submitNewCard(data) {
-  constants.saveCardButton.textContent = 'Добавление...';
+  popupCard.renderLoading(true, 'Добавление...')
   api.addNewCard(data)
     .then((card) => {
       section.addItem(renderer(card));
@@ -57,7 +57,7 @@ function submitNewCard(data) {
       popupCard.closePopup();
     })
     .catch(err => console.log(err))
-    .finally(() => constants.saveCardButton.textContent = 'Добавить');
+    .finally(() => popupCard.renderLoading(false, 'Добавить'));
 }
 
 function removeLastElement() {
