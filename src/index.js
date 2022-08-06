@@ -26,8 +26,6 @@ const popupProfile = new PopupWithForm('.popup_profile-edit', submitEditProfile)
 const popupAvatar = new PopupWithForm('.popup__refresh-avatar', submitEditAvatar);
 const userInfo = new UserInfo({ name: '.profile__name', about: '.profile__about', avatar: '.profile__avatar' })
 
-const user = { name: popupProfile._inputList[0], about: popupProfile._inputList[1] }
-
 function submitEditProfile(data) {
   constants.saveProfileButton.textContent = 'Сохранение...';
   api.editProfileData(data)
