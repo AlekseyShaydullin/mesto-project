@@ -13,7 +13,7 @@ const api = new Api(constants.apiConfig);
 const cardApi = api.getCards();
 const userApi = api.getUserId();
 
-const section = new Section(renderer, 'elements__wrapper');
+const section = new Section(renderer, '.elements');
 
 const profileFormValidation = new FormValidator(constants.validationConfig, constants.formUserAddInfo);
 const cardFormValidation = new FormValidator(constants.validationConfig, constants.formUserAddCard);
