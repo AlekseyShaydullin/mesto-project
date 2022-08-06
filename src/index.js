@@ -7,7 +7,7 @@ import PopupWithImage from './components/PopupWithImage';
 import PopupWithDeleteCard from './components/PopupWithDeleteCard';
 import PopupWithForm from './components/PopupWithForm';
 import UserInfo from './components/UserInfo';
-import * as constants from './components/constants';
+import * as constants from './utils/constants';
 
 const api = new Api(constants.apiConfig);
 const cardApi = api.getCards();
