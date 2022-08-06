@@ -70,11 +70,11 @@ function removeLastElement() {
 function handleLikeCard(id, likeCard) {
   if (likeCard.classList.contains('element__button-like_active')) {
     api.delLikeCard(id)
-      .then(res => this._delLike(res))
+      .then(res => this.delLike(res))
       .catch(err => console.log(err))
   } else if (!likeCard.classList.contains('element__button-like_active')) {
     api.addLikeCard(id)
-      .then(res => this._addLike(res))
+      .then(res => this.addLike(res))
       .catch(err => console.log(err))
   }
 }

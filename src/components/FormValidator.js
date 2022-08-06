@@ -63,8 +63,8 @@ export default class FormValidator {
   }
 
 	clearValidation() {
-		this._resetValidation();
 		this._form.reset();
+		this._resetValidation();
 	}
 
 	enableValidation() {

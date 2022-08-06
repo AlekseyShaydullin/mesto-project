@@ -19,12 +19,12 @@ export default class Card {
       .cloneNode(true)
   }
 
-  _addLike(res) {
+  addLike(res) {
     this._likeCard.classList.add('element__button-like_active');
     this._counterLikes.textContent = res.likes.length;
   }
 
-  _delLike(res) {
+  delLike(res) {
     this._likeCard.classList.remove('element__button-like_active');
     this._counterLikes.textContent = res.likes.length;
   }
