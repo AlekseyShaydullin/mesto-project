@@ -54,18 +54,13 @@ export default class FormValidator {
 		this._toggleButtonState();
 	}
 
-	_resetValidation() {
-		this._errorItems = [...this._form.querySelectorAll(`.${this._validationConfig.errorClass}`)];
-		this._inputErrorList = [...this._form.querySelectorAll(`.${this._validationConfig.inputErrorClass}`)];
-		this._errorItems.forEach(errorItem => {
-			errorItem.classList.remove(this._validationConfig.errorClass);
-		});
-		this._inputErrorList.forEach(input => {
-			input.classList.remove(this._validationConfig.inputErrorClass);
-		});
-		this._buttonElement.disabled = true;
-		this._buttonElement.classList.add(this._validationConfig.inactiveButtonClass);
-	}
+  _resetValidation() {
+    this._toggleButtonState()
+
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement)
+    });
+  }
 
 	clearValidation() {
 		this._resetValidation();
