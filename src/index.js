@@ -127,9 +127,7 @@ constants.cardButtonAdd.addEventListener('click', () => {
 constants.buttonAddInfo.addEventListener('click', () => {
   popupProfile.openPopup();
   profileFormValidation.clearValidation();
-  const { name, about } = userInfo.getUserInfo();
-  user.name.value = name;
-  user.about.value = about;
+  popupProfile.setInputValues(userInfo.getUserInfo());
 });
 
 Promise.allSettled([userApi, cardApi])
