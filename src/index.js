@@ -59,20 +59,20 @@ function submitNewCard(data) {
     .finally(() => popupCard.renderLoading(false, 'Добавить'));
 }
 
-function handleLikeCard(id, likeCard) {
-  if (likeCard.classList.contains('element__button-like_active')) {
-    api.delLikeCard(id)
-      .then(res => this.delLike(res))
-      .catch(err => console.log(err))
-  } else if (!likeCard.classList.contains('element__button-like_active')) {
+function handleLike(card, id) {  
     api.addLikeCard(id)
-      .then(res => this.addLike(res))
+      .then(res => card.addLike(res))
       .catch(err => console.log(err))
-  }
+}
+
+function deleteLike(card, id) {
+    api.delLikeCard(id)
+      .then(res => card.delLike(res))
+      .catch(err => console.log(err))
 }
 
 function renderer(item) {
-  const card = new Card(item, '#card-template', constants.userId, handleLikeCard, openPopupImage, deleteCard);
+  const card = new Card(item, '#card-template', constants.userId, handleLike, deleteLike, openPopupImage, deleteCard);
   return card.createCard()
 }
 
