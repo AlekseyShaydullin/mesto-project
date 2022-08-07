@@ -53,16 +53,10 @@ function submitNewCard(data) {
   api.addNewCard(data)
     .then((card) => {
       section.addItem(renderer(card));
-      removeLastElement()
       popupCard.closePopup();
     })
     .catch(err => console.log(err))
     .finally(() => popupCard.renderLoading(false, 'Добавить'));
-}
-
-function removeLastElement() {
-  const cards = constants.cardBox.querySelectorAll('.element');
-  cards[cards.length - 1].remove();
 }
 
 function handleLikeCard(id, likeCard) {
