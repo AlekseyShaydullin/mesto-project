@@ -83,11 +83,8 @@ function openPopupImage(name, link) {
 function submitDeleteCard(id) {
   api.delNewCard(id)
     .then(() => {
-      api.getCards()
-        .then((cards) => {
-          section.rendererItems(cards)
-          popupTrash.closePopup();
-        })
+      document.querySelector(`.element[id="${id}"]`).remove();
+      popupTrash.closePopup();
     })
     .catch(err => console.log(err))
 }
