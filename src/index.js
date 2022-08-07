@@ -41,7 +41,7 @@ function submitEditAvatar(data) {
   popupAvatar.renderLoading(true);
   api.refreshAvatar(data)
     .then(avatar => {
-      userInfo.setUserAvatar(avatar);
+      userInfo.setUserInfo(avatar);
       popupAvatar.closePopup();
     })
     .catch(err => console.log(err))
@@ -108,6 +108,7 @@ popupTrash.setEventListener();
 popupCard.setEventListener();
 popupProfile.setEventListener();
 popupAvatar.setEventListener();
+popupImage.setEventListener();
 
 // Открытие Popup окна - Refresh Avatar:
 constants.refreshButtonAvatar.addEventListener('click', () => {
