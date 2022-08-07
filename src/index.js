@@ -131,7 +131,6 @@ constants.buttonAddInfo.addEventListener('click', () => {
 Promise.allSettled([userApi, cardApi])
   .then(([{ value: user }, { value: cards }]) => {
     userInfo.setUserInfo(user);
-    userInfo.setUserAvatar(user);
     constants.userId._id = user?._id;
     section.rendererItems(cards);
   })
