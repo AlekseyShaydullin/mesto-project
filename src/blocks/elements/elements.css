@@ -1,4 +1,4 @@
-/*.elements__wrapper {
+.elements {
   padding-top: 50px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -8,7 +8,7 @@
 }
 
 @media screen and (max-width: 896px) {
-  .elements__wrapper {
+  .elements {
     padding-top: 36px;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -17,10 +17,10 @@
 }
 
 @media screen and (max-width: 599px) {
-  .elements__wrapper {
+  .elements {
     padding-top: 36px;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(6, 1fr);
     gap: 20px;
   }
-}*/
+}
